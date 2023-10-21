@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-import App from './exercises/01-finish/App';
+import App from './exercises/02-useEffect/App';
 
 import reportWebVitals from './reportWebVitals';
 
