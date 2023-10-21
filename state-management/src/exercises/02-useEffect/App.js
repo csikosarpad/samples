@@ -14,7 +14,7 @@ import '../../App.css';
 function App() {
   const [values, setValues] = useState(0);
   const [guess, setGuess] = useState(0);
-  const [message, setMessage] = useState('');
+  const [result, setResult] = useState('');
 
   const generateRandomNumbers = () => {
     const random1 = Math.floor(Math.random() * 100);
@@ -27,7 +27,7 @@ function App() {
       parseInt(guess) === values.random1 + values.random2
         ? 'Your guessed right!'
         : 'Try again!';
-    setMessage(message);
+    setResult(message);
   };
 
   return (
@@ -44,7 +44,7 @@ function App() {
               guess={guessYourTip}
               onChange={setGuess}
             />
-            <Result message={message} />
+            <Result result={result} />
           </div>
         </fieldset>
       </div>
