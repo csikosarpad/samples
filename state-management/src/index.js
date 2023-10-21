@@ -2,15 +2,18 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-import App from './exercises/02-useEffect/App';
+import App from './exercises/03-useContext/App';
+import Provider from './exercises/03-useContext/context';
 
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
+  <Provider>
+    <StrictMode>
+      <App />
+    </StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
