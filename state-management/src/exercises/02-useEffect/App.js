@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import Form from './components/Form';
 import Result from './components/Result';
 import '../../App.css';
@@ -11,19 +11,38 @@ import '../../App.css';
 5 - If the sum is not equal to the user input, display "Try Again :("
 */
 
+const initialState = {
+  values: { random1: 0, random2: 0 },
+  guess: 0,
+  result: 0,
+};
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setValues':
+      return { ...state, values: action.payload.values };
+    case 'setGuess':
+      return { ...state, guess: action.payload.guess };
+    case 'setResult':
+      return { ...state, result: action.payload.result };
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [values, setValues] = useState(0);
-  const [guess, setGuess] = useState(0);
-  const [result, setResult] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const generateRandomNumbers = () => {
-    const random1 = Math.floor(Math.random() * 100);
-    const random2 = Math.floor(Math.random() * 100);
-    setValues({ random1, random2 });
+    const random1 = Math.floor(Math.random() * 50);
+    const random2 = Math.floor(Math.random() * 50);
+    dispatch({ type: 'setValues', payload: { values: { random1, random2 } } });
   };
 
   const guessYourTip = () => {
-    setResult(values.random1 + values.random2);
+    dispatch({
+      type: 'setResult',
+      payload: { result: state.values.random1 + state.values.random2 },
+    });
   };
 
   return (
@@ -35,12 +54,14 @@ function App() {
           </legend>
           <div className='d-flex justify-content-around'>
             <Form
-              values={values}
+              values={state.values}
               generate={generateRandomNumbers}
               guess={guessYourTip}
-              onChange={setGuess}
+              onChange={(value) =>
+                dispatch({ type: 'setGuess', payload: { guess: value } })
+              }
             />
-            <Result result={result} guess={guess} />
+            <Result result={state.result} guess={state.guess} />
           </div>
         </fieldset>
       </div>

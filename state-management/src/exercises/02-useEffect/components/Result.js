@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 const Result = ({ result, guess }) => {
   const [message, setMessage] = useState('');
   useEffect(() => {
-    const answer =
-      parseInt(guess) === result ? 'Your guessed right!' : 'Try again!';
-    setMessage(answer);
-    if (!result) {
-      setMessage('');
+    let answer;
+    if (guess && result) {
+      answer =
+        parseInt(guess) === result ? 'Your guessed right!' : 'Try again!';
+    } else {
+      answer = '';
     }
+    setMessage(answer);
   }, [guess, result]);
 
   return (
