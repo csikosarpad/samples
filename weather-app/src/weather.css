@@ -1,0 +1,23 @@
+@import url(_variables.css);
+
+body {
+  background-color: var(--background-color, #142534);
+  color: var(--light-blue, #93b7cc);
+  margin: var(--margin, 0);
+  padding: var(--padding, 0);
+}
+
+.app-container {
+  display: var(--display, flex);
+  flex-wrap: var(--flex-wrap, nowrap);
+  flex-direction: var(--flex-direction, column);
+  box-sizing: var(--box-sizing, content-box);
+  width: 50vw;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--light-blue, #93b7cc);
+  text-decoration: var(--text-decoration, none);
+}
