@@ -1,0 +1,84 @@
+@import url(_variables.css);
+
+body {
+  background-color: var(--background-color, #142534);
+  color: var(--light-blue, #93b7cc);
+  margin: var(--margin, 0);
+  padding: var(--padding, 0);
+}
+
+.app-container {
+  display: var(--display, flex);
+  flex-wrap: var(--flex-wrap, nowrap);
+  flex-direction: var(--flex-direction, column);
+  align-items: center;
+  text-align: center;
+  box-sizing: var(--box-sizing, content-box);
+  width: 50vw;
+  height: 100vh;
+  margin: 0 auto;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.3);
+  overflow: auto;
+}
+
+a {
+  color: var(--light-blue, #93b7cc);
+  text-decoration: var(--text-decoration, none);
+}
+
+button,
+input {
+  background: transparent;
+  border: 0;
+  color: var(--light-blue, #93b7cc);
+  font-size: 3rem;
+}
+input {
+  font-size: 1rem;
+  border-bottom: 1px solid var(--light-blue, #93b7cc);
+}
+
+ul.weather-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.weather-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+ul.weather-list li.city {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+ul.weather-list li.time {
+  font-size: 2rem;
+  color: var(--darker-blue);
+}
+
+ul.weather-list li i {
+  min-width: 32px;
+  margin: 0 1rem 0 0;
+  padding: 0;
+  color: var(--darker-blue);
+}
+
+.btn.btn-back {
+  position: relative;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+.btn.btn-back:before {
+  content: '<';
+  font-family: cursive;
+  display: block;
+  position: absolute;
+  left: 20%;
+  top: 0;
+  font-size: 2rem;
+  color: var(--darker-blue);
+}

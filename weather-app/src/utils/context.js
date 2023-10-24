@@ -10,7 +10,7 @@ const cities = [
   { name: 'Szeged', id: 'city_5' },
   { name: 'Vác', id: 'city_6' },
   { name: 'Balaton', id: 'city_7' },
-  { name: 'Fertő-tó', id: 'city_8' },
+  { name: 'Hajdúszoboszló', id: 'city_8' },
 ];
 
 const initialState = {

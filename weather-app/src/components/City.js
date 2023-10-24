@@ -13,10 +13,10 @@ const City = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>{state.currentCity.name}</h2>
       <button onClick={setPage}>+</button>
-    </div>
+    </>
   );
 };
 
