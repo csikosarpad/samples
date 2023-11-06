@@ -1,4 +1,4 @@
-# Sample task for VOIS by Árpád Csikos
+# Sample shopping cart by Árpád Csikos, based on create-react-app
 
 During the task a json server should work, which is included in the package, but should be started separately in the server folder (separate package)
 
