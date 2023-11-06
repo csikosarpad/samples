@@ -14,10 +14,10 @@ Then back to the root (I mean the root of my package), where I also npm install
 
 ### `npm run start`
 
-## PORTS at the project
+## PORTS in the project
 
-Thre server **:3003** (http://localhost:3003/)
+The server **:3003** (http://localhost:3003/)
 
-Thre application **:3001** (http://localhost:3001/)
+The application **:3001** (http://localhost:3001/)
 
 # Good luck!
