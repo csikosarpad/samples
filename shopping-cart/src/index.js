@@ -1,15 +1,17 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-
-import App from './exercises/02-useEffect/App';
-
+import App from './App';
+//import { store } from './app/store';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
+const root = document.getElementById('root');
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.createRoot(root).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>
 );
 
