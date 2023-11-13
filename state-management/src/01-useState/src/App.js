@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../../App.css';
+import './App.css';
 
 /*
 1 - generate two new random numbers
