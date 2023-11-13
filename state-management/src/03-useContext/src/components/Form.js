@@ -19,6 +19,10 @@ const Form = () => {
     });
   };
 
+  const reset = () => {
+    dispatch({ type: 'reset' });
+  };
+
   return (
     <div>
       <div className='p-2' style={{ width: '100%' }}>
@@ -58,6 +62,14 @@ const Form = () => {
             onClick={guessYourTip}
           >
             your tip
+          </button>
+          <button
+            type='button'
+            className='btn btn-dark text-light'
+            style={{ width: '100%', marginTop: '10px' }}
+            onClick={reset}
+          >
+            reset
           </button>
         </div>
       </form>

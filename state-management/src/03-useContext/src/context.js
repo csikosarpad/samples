@@ -11,6 +11,8 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'reset':
+      return initialState;
     case 'setValues':
       return {
         ...state,
