@@ -1,7 +1,7 @@
 import Form from './components/Form';
 import Result from './components/Result';
 import Score from './components/Score';
-import '../../App.css';
+import './App.css';
 
 /*
 1 - generate two new random numbers
