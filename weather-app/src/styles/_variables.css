@@ -1,0 +1,17 @@
+:root {
+  /* layout */
+  --margin: 0;
+  --padding: 0;
+  --display: flex;
+  --flex-wrap: nowrap;
+  --flex-direction: column;
+  --box-sizing: content-box;
+
+  /* colors */
+  --background-color: #142534;
+  --light-blue: #93b7cc;
+  --darker-blue: #22699f;
+
+  /* text */
+  --text-decoration: none;
+}
