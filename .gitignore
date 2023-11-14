@@ -2,12 +2,8 @@
 # https://github.com/github/gitignore/blob/main/Node.gitignore
 
 # dependencies
-<<<<<<< HEAD
 node_modules/
-=======
-/node_modules
 /coverage
->>>>>>> main
 /.pnp
 .pnp.js
 
