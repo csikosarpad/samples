@@ -2,7 +2,7 @@
 import concat from '../src/concat';
 
 describe('reproduce array concate ', () => {
-  it('should add an array of numbers', () => {
+  it('should join two arrays', () => {
     const arr1 = ['alma', 'dió', 'mogyoró'];
     const arr2 = ['tej', 'tea', 'üdítő'];
     const expectedArray = ['alma', 'dió', 'mogyoró', 'tej', 'tea', 'üdítő'];
