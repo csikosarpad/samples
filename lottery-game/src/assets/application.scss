@@ -1,0 +1,194 @@
+:root {}
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    background-color: #252f5a;
+
+    nav {
+        display: flex;
+        background-color: #252f5a;
+        align-content: center;
+        align-items: center;
+        justify-content: space-around;
+        padding: 30px 0;
+        border-bottom: 5px solid rgba(134, 98, 142, 0.6);
+
+        .icon {
+            cursor: pointer;
+            position: relative;
+            outline: 1px dashed rgba(189, 43, 222, 0.60);
+
+            &.icon-person {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                padding: 20px;
+                background: url(icon-iron-man-wh-48.png) no-repeat center center;
+                transition: all 0.2s ease-in;
+                border: 7px dashed #bc2cdd;
+                transform: rotate(0);
+
+                &.icon-gamer {
+                    background-image: url(icon-iron-man-wh-48.png)
+                }
+
+                &.icon-operator {
+                    background-image: url(icon-admin-settings-male-wh-48.png)
+                }
+
+                i {
+                    font-size: 1.2rem;
+                    position: absolute;
+                    right: -40px;
+                    bottom: 0;
+                    transition: all 0.5s ease-out;
+                    color: rgba(127, 123, 123, 0.4);
+                    transform: rotate(-75deg);
+                }
+
+                &:hover {
+                    box-shadow: 0px 0px 0px 10px rgba(188, 44, 221, 0.6),
+                        0px 0px 0px 20px rgba(188, 44, 221, 0.4),
+                        0px 0px 0px 35px rgba(188, 44, 221, 0.2);
+                    transform: rotate(360deg);
+                    border: 7px dashed #fff;
+                    background-color: rgba($color: #ffffff, $alpha: .4);
+
+                    i {
+                        font-size: 1.6rem;
+                        color: rgba($color: #ffffff, $alpha: 1);
+                        transform: rotate(-1440deg);
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        .tickets {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            outline: 1px dashed #fff;
+            padding: 10px;
+            max-width: 800px;
+            min-width: 400px;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            /*&.fill:after {
+                content: "You can send your lottery ticket!";
+                display: block;
+                position: absolute;
+                font-size: 1.2rem;
+                color: #fff;
+                text-align: center;
+                background-color: beige;
+                padding: 10px;
+                border-radius: 0% 37% 10% 57%;
+                transform: skew(20deg, -30deg);
+                left: -100px;
+                color: black;
+                left: -150px;
+                top: -25px;
+            } */
+
+            .ticket {
+                width: 70px;
+                height: 70px;
+                display: flex;
+                color: rgba($color: #ffffff, $alpha: .4);
+                justify-content: center;
+                align-items: center;
+                outline: 1px dotted rgba($color: #fff, $alpha: .7);
+                font-size: 3rem;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: all 0.2s ease-in;
+
+                &.selected {
+                    color: #fff;
+
+                    /*background-color: rgba($color: #000, $alpha: .4);*/
+                    &::after {
+                        content: 'X';
+                        position: absolute;
+                        opacity: 0.5;
+                        color: green;
+                        font-size: 5rem;
+                        transition: all 0.2s ease-in;
+                    }
+
+                    &:hover::after {
+                        font-size: 2rem;
+                    }
+
+                }
+
+                &:hover {
+                    color: #fff;
+                    /*background-color: rgba($color: #000, $alpha: .4);*/
+                    box-shadow: 0 0 5px rgba($color: #7f7b7b, $alpha: .4), 0 0 10px rgba($color: #ffffff, $alpha: 1);
+                }
+            }
+        }
+
+        .your-tips {
+            display: flex;
+            height: 30px;
+            gap: 10px;
+            margin: 20px 0 70px;
+
+
+            .tip {
+                display: flex;
+                padding: 10px;
+                align-items: center;
+                justify-content: center;
+                flex-direction: row;
+                font-size: 2rem;
+                color: #fff;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+
+                background-color: rgba($color: #292c32, $alpha: 1);
+                box-shadow: 0 0 5px rgba($color: #7f7b7b, $alpha: .2),
+                    0 0 10px rgba($color: #ffffff, $alpha: 0.4),
+                    0 0 20px rgba($color: #bfa6a6, $alpha: 1);
+            }
+        }
+
+        .send-ticket {
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            background-color: beige;
+            padding: 10px;
+            margin: 0 0 20px 0;
+            color: black;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in;
+
+            &:hover {
+                font-size: 2rem;
+            }
+        }
+    }
+}
