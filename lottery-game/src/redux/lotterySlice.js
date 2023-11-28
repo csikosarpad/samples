@@ -1,33 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const lottoLottery = () => {
-  const lottoSet = new Set();
-  while (lottoSet.size < 5) {
-    lottoSet.add(Math.ceil(Math.random() * 39) + 1);
-  }
-  return Array.from(lottoSet);
-};
-
-const osszesit = ({ lottoszamok, szelveny }) => {
-  return lottoszamok.filter((item) => szelveny.find((elem) => elem === item));
-};
-
-const eredmeny = ({ lottoszamok, szelveny }) => {
-  const temp = osszesit({ lottoszamok, szelveny });
-  let message = temp.length > 1 ? 'Ön nyert!' : 'Nem nyert!';
-  return {
-    szamok: temp,
-    talalat: temp.length,
-    message: message,
-  };
-};
-
-/*const emberi = ({ lottoszamok, szelveny }) => {
-  const vegeredmeny = eredmeny({ lottoszamok, szelveny });
-  console.log(
-    `A sorsolás eredménye: ${vegeredmeny.message}, mivel összesen ${vegeredmeny.talalat} számot talált el, melyek: ${vegeredmeny.szamok}`
-  );
-};*/
+import {
+  result,
+  resetClass,
+  getLottoLottery,
+  setStorage,
+  getResultsTickets,
+} from '../utils/utils';
+import { GAMER } from '../utils/constans';
 
 const initialState = {
   ticketClickCounter: 0,
@@ -37,34 +16,59 @@ const initialState = {
   gamerTip: [],
   canPost: false,
   sentPost: false,
-  lottoSzamok: lottoLottery(),
+  lotteryNumbers: [],
   actPage: 'gamer',
-  eredmeny: {},
+  result: {},
+  gamerName: '',
+  gamerFinancialBalance: GAMER.FINANCIAL_BALANCE,
+  gamerVouchers: [],
+  gamerVoucherNumbers: 0,
+  gamerTicketResults: [],
 };
+
 const lotterySlice = createSlice({
   name: 'lottery',
   initialState: initialState,
-
   reducers: {
     setPage: (state, action) => {
       state.actPage = action.payload;
     },
-    lottoSorsolas: () => {
-      this.state.lottoSzamok = lottoLottery();
+    lotteryGame: (state) => {
+      state.lotteryNumbers = getLottoLottery();
+      state.gamerTicketResults = getResultsTickets({
+        lotteryNumbers: state.lotteryNumbers,
+        vouchers: state.gamerVouchers,
+      });
     },
     reset: () => {
-      document
-        .querySelectorAll('.ticket')
-        .forEach((item) => item.classList.remove('selected'));
+      resetClass();
       return initialState;
     },
+    setGamerName: (state, action) => {
+      state.gamerName = action.payload;
+    },
     sendTheTip: (state) => {
-      state.eredmeny = eredmeny({
-        lottoszamok: state.lottoSzamok,
-        szelveny: state.tips,
+      /*state.result = result({
+        lotteryNumbers: state.lotteryNumbers,
+        voucher: state.tips,
+      });*/
+      const actTips = Array.from(state.tips);
+      state.gamerVoucherNumbers++;
+      state.gamerFinancialBalance -= GAMER.PRICE_OF_TICKET;
+      state.gamerVouchers = [...state.gamerVouchers, actTips];
+      setStorage({
+        key: 'gamerVoucherNumbers',
+        value: state.gamerVoucherNumbers,
       });
-      state.sentPost = true;
-      state = state.initialState;
+      setStorage({
+        key: `ticket_${state.gamerVoucherNumbers}`,
+        value: actTips,
+      });
+      //state.sentPost = true;
+      state.canPost = false;
+      state.tips = [];
+      state.ticketClickCounter = 0;
+      resetClass();
     },
     addTicket: (state, action) => {
       const element = document.querySelector(`#${action.payload}`);
@@ -86,6 +90,14 @@ const lotterySlice = createSlice({
 });
 
 const lotteryReducer = lotterySlice.reducer;
-export const { setPage, addTicket, sendTheTip, reset } = lotterySlice.actions;
+
+export const {
+  setPage,
+  addTicket,
+  sendTheTip,
+  lotteryGame,
+  reset,
+  setGamerName,
+} = lotterySlice.actions;
 
 export default lotteryReducer;

@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addTicket } from '../redux/lotterySlice';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const TicketDraw = () => {
-  const tips = useSelector((state) => state.tips);
+  //const tips = useSelector((state) => state.tips);
   const canPost = useSelector((state) => state.canPost);
   const sentPost = useSelector((state) => state.sentPost);
-  const ticketMaxTips = useSelector((state) => state.ticketMaxTips);
+  const gamerFinancialBalance = useSelector(
+    (state) => state.gamerFinancialBalance
+  );
+  //const ticketMaxTips = useSelector((state) => state.ticketMaxTips);
   const lotteryRange = useSelector((state) => state.lotteryRange);
 
   const dispatch = useDispatch();
@@ -32,21 +35,23 @@ const TicketDraw = () => {
 
   return (
     <div className={panelClassName}>
-      {tickets.map((item) => {
-        const { itemIndex, ticketClassName } = item;
-        const ticketId = `ticket_${itemIndex}`;
-        return (
-          <div
-            tabIndex={itemIndex}
-            className={ticketClassName}
-            key={itemIndex}
-            id={ticketId}
-            onClick={handleTicket}
-          >
-            {itemIndex}
-          </div>
-        );
-      })}
+      {gamerFinancialBalance === 0 && <p>You have no more money</p>}
+      {gamerFinancialBalance > 0 &&
+        tickets.map((item) => {
+          const { itemIndex, ticketClassName } = item;
+          const ticketId = `ticket_${itemIndex}`;
+          return (
+            <div
+              tabIndex={itemIndex}
+              className={ticketClassName}
+              key={itemIndex}
+              id={ticketId}
+              onClick={handleTicket}
+            >
+              {itemIndex}
+            </div>
+          );
+        })}
     </div>
   );
 };
