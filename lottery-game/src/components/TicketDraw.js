@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addTicket } from '../redux/lotterySlice';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const TicketDraw = () => {
   //const tips = useSelector((state) => state.tips);
@@ -16,7 +16,7 @@ const TicketDraw = () => {
   const tickets = [];
   const maxNumber = lotteryRange.maxNum;
 
-  const panelClassName = canPost ? 'tickets fill' : 'tickets';
+  const panelClassName = canPost ? 'board fill' : 'board';
 
   let iterator = lotteryRange.minNum;
   while (iterator <= maxNumber) {

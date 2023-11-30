@@ -1,3 +1,4 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   sendTheTip,
@@ -7,36 +8,17 @@ import {
 } from '../redux/lotterySlice';
 
 import TicketDraw from './TicketDraw';
+import GamerResultsBoard from './GamerResultsBoard';
 import { getStorage, setStorage, formatPrice } from '../utils/utils';
 import { GAMER } from '../utils/constans';
-
-const SentTickets = ({ vouchers }) => {
-  if (Array.isArray(vouchers)) {
-    return (
-      <ol className='vouchers'>
-        {vouchers.map((voucher, voucherIndex) => {
-          return (
-            <li key={voucherIndex}>
-              {voucher.map((item, numIndex) => {
-                return (
-                  <span key={numIndex} className='tipp'>
-                    {item}
-                  </span>
-                );
-              })}
-            </li>
-          );
-        })}
-      </ol>
-    );
-  }
-};
 
 const Gamer = () => {
   const dispatch = useDispatch();
   const tips = useSelector((state) => state.tips);
   const canPost = useSelector((state) => state.canPost);
+  const sentPost = useSelector((state) => state.sentPost);
   const result = useSelector((state) => state.result);
+  const lotteryNumbers = useSelector((state) => state.lotteryNumbers);
   const gamerName = useSelector(
     (state) => state.gamerName || getStorage(GAMER.NAME)
   );
@@ -44,6 +26,9 @@ const Gamer = () => {
   const gamerTicketResults = useSelector((state) => state.gamerTicketResults);
   const gamerFinancialBalance = useSelector(
     (state) => state.gamerFinancialBalance
+  );
+  const bankFinancialBalance = useSelector(
+    (state) => state.bankFinancialBalance
   );
 
   const handleSend = () => {
@@ -77,17 +62,29 @@ const Gamer = () => {
           <button onClick={handleGamerName}>Set your name</button>
         </>
       )}
-      {gamerName && (
-        <h3>
-          {gamerName} <span>{formatPrice(gamerFinancialBalance)}</span>
-        </h3>
-      )}
+      <h3>
+        {gamerName && (
+          <span>
+            {gamerName}{' '}
+            <i>
+              {formatPrice(gamerFinancialBalance)} {GAMER.CURRENCY}
+            </i>
+          </span>
+        )}{' '}
+        - BANK:{' '}
+        <i>
+          {formatPrice(bankFinancialBalance)} {GAMER.CURRENCY}
+        </i>
+      </h3>
 
       <p className='your-tips'>
         {tips.map((item) => {
           return <i className='tip'>{item}</i>;
         })}
       </p>
+      {lotteryNumbers && (
+        <p className='lottery-numbers'>{lotteryNumbers.toString()}</p>
+      )}
       {result.talalat && (
         <p className='result'>
           {result.message} - {result.szamok.toString()}
@@ -96,23 +93,36 @@ const Gamer = () => {
       <div className='tickets-place'>
         {gamerVouchers && (
           <>
-            <p>{gamerTicketResults}</p>
-            <SentTickets vouchers={gamerVouchers} />
+            <GamerResultsBoard
+              vouchers={gamerVouchers}
+              ticketResults={gamerTicketResults}
+            />
           </>
         )}
         <TicketDraw />
       </div>
       {canPost && (
-        <button className='send-ticket' onClick={handleSend}>
-          You can send your lottery ticket!
+        <button className='send-ticket design-button' onClick={handleSend}>
+          Buy ticket{' '}
+          <span className='price-of-ticket'>
+            {GAMER.PRICE_OF_TICKET} {GAMER.CURRENCY}{' '}
+          </span>
+          and Send
         </button>
       )}
-      <button className='new-ticket' onClick={handleNewPost}>
-        newGame
+
+      <button
+        className='new-game design-button reset-button'
+        onClick={handleNewPost}
+      >
+        New Game
       </button>
-      <button className='new-ticket' onClick={handleLottery}>
-        Lotto Lottery
-      </button>
+
+      {!sentPost && gamerVouchers.length > 0 && (
+        <button className='play-the-game design-button' onClick={handleLottery}>
+          Lotto Lottery
+        </button>
+      )}
     </>
   );
 };

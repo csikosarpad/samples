@@ -1,6 +1,7 @@
 export const getStorage = (prop) => {
   return localStorage.getItem(prop) ?? null;
 };
+
 export const setStorage = ({ key, value }) => {
   localStorage.setItem(key, value);
 };
@@ -40,13 +41,6 @@ export const result = ({ lotteryNumbers, voucher }) => {
   };
 };
 
-export const emberi = ({ lotteryNumbers, voucher }) => {
-  const vegeredmeny = result({ lotteryNumbers, voucher });
-  console.log(
-    `A sorsolás eredménye: ${vegeredmeny.message}, mivel összesen ${vegeredmeny.talalat} számot talált el, melyek: ${vegeredmeny.szamok}`
-  );
-};
-
 export const resetClass = () => {
   document
     .querySelectorAll('.ticket')
@@ -54,10 +48,9 @@ export const resetClass = () => {
 };
 
 export const formatPrice = (price) => {
-  let GBP = new Intl.NumberFormat('en-EN', {
-    style: 'currency',
-    currency: 'GBP',
-    maximumFractionDigits: 0,
-  });
-  return GBP.format(price);
+  let ret = new Intl.NumberFormat('en-EN', {
+    maximumSignificantDigits: 3,
+  }).format(price);
+
+  return ret;
 };

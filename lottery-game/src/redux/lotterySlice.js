@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  result,
   resetClass,
   getLottoLottery,
   setStorage,
   getResultsTickets,
 } from '../utils/utils';
-import { GAMER } from '../utils/constans';
+import { GAMER, BANK } from '../utils/constans';
 
 const initialState = {
   ticketClickCounter: 0,
@@ -21,9 +20,11 @@ const initialState = {
   result: {},
   gamerName: '',
   gamerFinancialBalance: GAMER.FINANCIAL_BALANCE,
+  bankFinancialBalance: BANK.FINANCIAL_BALANCE,
   gamerVouchers: [],
   gamerVoucherNumbers: 0,
   gamerTicketResults: [],
+  gamerTotalPrice: 0,
 };
 
 const lotterySlice = createSlice({
@@ -39,6 +40,7 @@ const lotterySlice = createSlice({
         lotteryNumbers: state.lotteryNumbers,
         vouchers: state.gamerVouchers,
       });
+      state.sentPost = true;
     },
     reset: () => {
       resetClass();
@@ -46,6 +48,9 @@ const lotterySlice = createSlice({
     },
     setGamerName: (state, action) => {
       state.gamerName = action.payload;
+    },
+    setGamerTotalPrice: (state, action) => {
+      state.gamerTotalPrice += action.payload;
     },
     sendTheTip: (state) => {
       /*state.result = result({
@@ -55,6 +60,7 @@ const lotterySlice = createSlice({
       const actTips = Array.from(state.tips);
       state.gamerVoucherNumbers++;
       state.gamerFinancialBalance -= GAMER.PRICE_OF_TICKET;
+      state.bankFinancialBalance += GAMER.PRICE_OF_TICKET;
       state.gamerVouchers = [...state.gamerVouchers, actTips];
       setStorage({
         key: 'gamerVoucherNumbers',
@@ -98,6 +104,7 @@ export const {
   lotteryGame,
   reset,
   setGamerName,
+  setGamerTotalPrize,
 } = lotterySlice.actions;
 
 export default lotteryReducer;
