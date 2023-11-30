@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
-//import { setGamerTotalPrize } from '../redux/lotterySlice';
-
 import { GAMERULES, GAMER } from '../utils/constans';
+import { setStorage } from '../utils/utils';
 
 const currentPrize = (num) => {
   let result = GAMERULES.WINS.filter((item) => {
@@ -70,6 +68,10 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
     (accumulator, currentValue) => accumulator + currentValue.ticketPrize,
     0
   );
+
+  useEffect(() => {
+    setStorage({ key: 'gamerTotalPrice', value: gamerTotalPrice });
+  }, [gamerTotalPrice]);
 
   useEffect(() => {
     setNewList(setList({ vouchers, ticketResults }));

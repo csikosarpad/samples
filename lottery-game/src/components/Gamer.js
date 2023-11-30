@@ -65,13 +65,15 @@ const Gamer = () => {
       <h3>
         {gamerName && (
           <span>
-            {gamerName}{' '}
+            {gamerName}
+            {': '}
             <i>
               {formatPrice(gamerFinancialBalance)} {GAMER.CURRENCY}
             </i>
+            {' - '}
           </span>
-        )}{' '}
-        - BANK:{' '}
+        )}
+        Bank:{' '}
         <i>
           {formatPrice(bankFinancialBalance)} {GAMER.CURRENCY}
         </i>
@@ -118,7 +120,8 @@ const Gamer = () => {
         New Game
       </button>
 
-      {!sentPost && gamerVouchers.length > 0 && (
+      {/*!sentPost && gamerVouchers.length > 0 && (*/}
+      {gamerVouchers.length > 0 && (
         <button className='play-the-game design-button' onClick={handleLottery}>
           Lotto Lottery
         </button>

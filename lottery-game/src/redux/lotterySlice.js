@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   resetClass,
+  resetStorage,
   getLottoLottery,
   setStorage,
   getResultsTickets,
@@ -44,6 +45,7 @@ const lotterySlice = createSlice({
     },
     reset: () => {
       resetClass();
+      resetStorage();
       return initialState;
     },
     setGamerName: (state, action) => {
@@ -53,10 +55,6 @@ const lotterySlice = createSlice({
       state.gamerTotalPrice += action.payload;
     },
     sendTheTip: (state) => {
-      /*state.result = result({
-        lotteryNumbers: state.lotteryNumbers,
-        voucher: state.tips,
-      });*/
       const actTips = Array.from(state.tips);
       state.gamerVoucherNumbers++;
       state.gamerFinancialBalance -= GAMER.PRICE_OF_TICKET;
@@ -70,7 +68,6 @@ const lotterySlice = createSlice({
         key: `ticket_${state.gamerVoucherNumbers}`,
         value: actTips,
       });
-      //state.sentPost = true;
       state.canPost = false;
       state.tips = [];
       state.ticketClickCounter = 0;

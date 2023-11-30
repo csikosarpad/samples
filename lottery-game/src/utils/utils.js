@@ -5,6 +5,9 @@ export const getStorage = (prop) => {
 export const setStorage = ({ key, value }) => {
   localStorage.setItem(key, value);
 };
+export const removeItemFromStorage = (key) => {
+  localStorage.removeItem(key);
+};
 
 export const getLottoLottery = () => {
   const lottoSet = new Set();
@@ -45,6 +48,15 @@ export const resetClass = () => {
   document
     .querySelectorAll('.ticket')
     .forEach((item) => item.classList.remove('selected'));
+};
+
+export const resetStorage = () => {
+  const gamerVoucherNumbers = getStorage('gamerVoucherNumbers');
+  for (let i = 1; i <= gamerVoucherNumbers; i++) {
+    removeItemFromStorage(`ticket_${i}`);
+  }
+  removeItemFromStorage('gamerVoucherNumbers');
+  removeItemFromStorage('gamerTotalPrice');
 };
 
 export const formatPrice = (price) => {
