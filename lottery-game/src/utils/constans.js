@@ -9,7 +9,7 @@ export const GAMER = {
 };
 
 export const BANK = {
-  NAME: 'lotteryGamer',
+  NAME: 'lotteryBank',
   MONEY: 'lotteryBankMoney',
   INITMONEY: 0,
   PRICE_OF_TICKET: 500,

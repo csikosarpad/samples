@@ -18,23 +18,40 @@ export const getLottoLottery = () => {
 };
 
 const summarize = ({ lotteryNumbers, voucher }) => {
-  return lotteryNumbers.filter((item) => voucher.find((elem) => elem === item));
+  return lotteryNumbers.filter((item) => {
+    const actVoucher = voucher?.voucher || voucher;
+    return actVoucher.find((elem) => elem === item);
+  });
+};
+
+export const setTicketToUsed = (data) => {
+  return JSON.parse(JSON.stringify(data)).map((item) => {
+    if (!item?.used) {
+      return { used: true, voucher: item };
+    } else {
+      return item;
+    }
+  });
 };
 
 export const getResultsTickets = ({ lotteryNumbers, vouchers }) => {
   let ticketResults = [];
-  const nums = vouchers.length;
+  const notUsedVouchers = JSON.parse(
+    JSON.stringify(vouchers.filter((item) => !item.used))
+  );
+  const nums = notUsedVouchers.length;
   ticketResults = Array.from(Array(nums), () => []);
-  vouchers.map(
+  notUsedVouchers.map(
     (item, index) =>
       (ticketResults[index] = [
         ...summarize({ lotteryNumbers: lotteryNumbers, voucher: item }),
       ])
   );
+
   return ticketResults;
 };
 
-export const result = ({ lotteryNumbers, voucher }) => {
+/*export const result = ({ lotteryNumbers, voucher }) => {
   const temp = summarize({ lotteryNumbers, voucher });
   let message = temp.length > 1 ? 'Ön nyert!' : 'Nem nyert!';
   return {
@@ -42,7 +59,7 @@ export const result = ({ lotteryNumbers, voucher }) => {
     talalat: temp.length,
     message: message,
   };
-};
+};*/
 
 export const resetClass = () => {
   document

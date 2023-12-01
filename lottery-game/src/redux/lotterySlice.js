@@ -5,6 +5,7 @@ import {
   getLottoLottery,
   setStorage,
   getResultsTickets,
+  setTicketToUsed,
 } from '../utils/utils';
 import { GAMER, BANK } from '../utils/constans';
 
@@ -41,6 +42,7 @@ const lotterySlice = createSlice({
         lotteryNumbers: state.lotteryNumbers,
         vouchers: state.gamerVouchers,
       });
+      state.gamerVouchers = setTicketToUsed(state.gamerVouchers);
       state.sentPost = true;
     },
     reset: () => {

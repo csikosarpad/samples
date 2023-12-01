@@ -34,9 +34,10 @@ const TicketList = ({ tickets }) => {
       {tickets.map((ticket, ticketIndex) => {
         const { numbers, hits, ticketPrize } = ticket;
         const listClassName = hits?.length >= 2 ? 'win' : 'default';
+        const line = numbers?.voucher || numbers;
         return (
           <li className={listClassName} key={ticketIndex}>
-            {numbers.map((item, itemIndex) => {
+            {line.map((item, itemIndex) => {
               const numberCellClassName = hits?.includes(item)
                 ? 'tipp hit'
                 : 'tipp';
