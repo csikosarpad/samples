@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GAMERULES, GAMER } from '../utils/constans';
 import { setStorage } from '../utils/utils';
+import { useDispatch } from 'react-redux';
+import { setGamerTotalPrice } from '../redux/lotterySlice';
 
 const currentPrize = (num) => {
   let result = GAMERULES.WINS.filter((item) => {
@@ -57,6 +59,7 @@ const TicketList = ({ tickets }) => {
 };
 
 const GamerResultsBoard = ({ vouchers, ticketResults }) => {
+  const dispatch = useDispatch();
   const [order, setOrder] = useState(false);
   const [newList, setNewList] = useState([]);
 
@@ -65,14 +68,15 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
     order ? newList.sort(decSort) : newList.sort(ascSort);
   };
 
-  const gamerTotalPrice = newList.reduce(
+  const gamerCurrentTotalPrice = newList.reduce(
     (accumulator, currentValue) => accumulator + currentValue.ticketPrize,
     0
   );
 
   useEffect(() => {
-    setStorage({ key: 'gamerTotalPrice', value: gamerTotalPrice });
-  }, [gamerTotalPrice]);
+    setStorage({ key: 'gamerTotalPrice', value: gamerCurrentTotalPrice });
+    dispatch(setGamerTotalPrice(gamerCurrentTotalPrice));
+  }, [gamerCurrentTotalPrice]);
 
   useEffect(() => {
     setNewList(setList({ vouchers, ticketResults }));
@@ -83,17 +87,17 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
       {vouchers.length > 0 && (
         <>
           <h4 className={order ? 'desc' : 'asc'} onClick={onHandleVouchersList}>
-            Your tickets
+            Your results list
           </h4>
           <ol className='ticket vouchers'>
             <TicketList tickets={newList} />
           </ol>
-          {gamerTotalPrice > 0 && (
+          {gamerCurrentTotalPrice > 0 && (
             <ul className='ticket summary'>
               <li>
                 Your total winnings:
                 <span>
-                  {gamerTotalPrice} {GAMER.CURRENCY}
+                  {gamerCurrentTotalPrice} {GAMER.CURRENCY}
                 </span>
               </li>
             </ul>

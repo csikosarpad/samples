@@ -7,11 +7,11 @@ import {
   getResultsTickets,
   setTicketToUsed,
 } from '../utils/utils';
-import { GAMER, BANK } from '../utils/constans';
+import { GAMER, BANK, GAMERULES } from '../utils/constans';
 
 const initialState = {
   ticketClickCounter: 0,
-  lotteryRange: { minNum: 1, maxNum: 39 },
+  lotteryRange: { minNum: 1, maxNum: GAMERULES.MAXNUM },
   ticketMaxTips: 5,
   tips: [],
   gamerTip: [],
@@ -24,6 +24,7 @@ const initialState = {
   gamerFinancialBalance: GAMER.FINANCIAL_BALANCE,
   bankFinancialBalance: BANK.FINANCIAL_BALANCE,
   gamerVouchers: [],
+  gamerUsedVouchers: [],
   gamerVoucherNumbers: 0,
   gamerTicketResults: [],
   gamerTotalPrice: 0,
@@ -41,7 +42,9 @@ const lotterySlice = createSlice({
       state.gamerTicketResults = getResultsTickets({
         lotteryNumbers: state.lotteryNumbers,
         vouchers: state.gamerVouchers,
+        initTicketResults: state.gamerTicketResults,
       });
+      state.gamerUsedVouchers = setTicketToUsed(state.gamerVouchers);
       state.gamerVouchers = setTicketToUsed(state.gamerVouchers);
       state.sentPost = true;
     },
@@ -54,6 +57,7 @@ const lotterySlice = createSlice({
       state.gamerName = action.payload;
     },
     setGamerTotalPrice: (state, action) => {
+      state.gamerFinancialBalance += action.payload;
       state.gamerTotalPrice += action.payload;
     },
     sendTheTip: (state) => {
@@ -103,7 +107,7 @@ export const {
   lotteryGame,
   reset,
   setGamerName,
-  setGamerTotalPrize,
+  setGamerTotalPrice,
 } = lotterySlice.actions;
 
 export default lotteryReducer;

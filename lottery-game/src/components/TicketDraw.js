@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addTicket } from '../redux/lotterySlice';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const TicketDraw = () => {
   //const tips = useSelector((state) => state.tips);
@@ -28,10 +28,6 @@ const TicketDraw = () => {
   const handleTicket = (ev) => {
     dispatch(addTicket(ev.target.id));
   };
-
-  useEffect(() => {
-    console.log('sentPost - effect', sentPost);
-  }, [sentPost]);
 
   return (
     <div className={panelClassName}>

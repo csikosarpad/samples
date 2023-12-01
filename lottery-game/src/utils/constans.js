@@ -4,7 +4,7 @@ export const GAMER = {
   INITMONEY: 10000,
   PRICE_OF_TICKET: 500,
   CURRENCY: 'akcse',
-  FINANCIAL_BALANCE: 2000,
+  FINANCIAL_BALANCE: 10000,
   VOUCHERS: [],
 };
 
@@ -18,6 +18,7 @@ export const BANK = {
 };
 
 export const GAMERULES = {
+  MAXNUM: 39,
   WINS: [
     { hit: 2, prize: 2 },
     { hit: 3, prize: 4 },

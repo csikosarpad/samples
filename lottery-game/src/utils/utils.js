@@ -1,3 +1,5 @@
+import { GAMERULES } from './constans';
+
 export const getStorage = (prop) => {
   return localStorage.getItem(prop) ?? null;
 };
@@ -10,9 +12,10 @@ export const removeItemFromStorage = (key) => {
 };
 
 export const getLottoLottery = () => {
+  const maxNum = GAMERULES.MAXNUM - 1;
   const lottoSet = new Set();
   while (lottoSet.size < 5) {
-    lottoSet.add(Math.round(Math.random() * 38) + 1);
+    lottoSet.add(Math.round(Math.random() * maxNum) + 1);
   }
   return Array.from(lottoSet);
 };
@@ -34,32 +37,28 @@ export const setTicketToUsed = (data) => {
   });
 };
 
-export const getResultsTickets = ({ lotteryNumbers, vouchers }) => {
+export const getResultsTickets = ({
+  lotteryNumbers,
+  vouchers,
+  initTicketResults,
+}) => {
+  const initResults = JSON.parse(JSON.stringify(initTicketResults)) || [];
   let ticketResults = [];
   const notUsedVouchers = JSON.parse(
     JSON.stringify(vouchers.filter((item) => !item.used))
   );
   const nums = notUsedVouchers.length;
-  ticketResults = Array.from(Array(nums), () => []);
+  const newItems = Array.from(Array(nums), () => []);
   notUsedVouchers.map(
     (item, index) =>
-      (ticketResults[index] = [
+      (newItems[index] = [
         ...summarize({ lotteryNumbers: lotteryNumbers, voucher: item }),
       ])
   );
+  ticketResults = initResults.concat(newItems);
 
   return ticketResults;
 };
-
-/*export const result = ({ lotteryNumbers, voucher }) => {
-  const temp = summarize({ lotteryNumbers, voucher });
-  let message = temp.length > 1 ? 'Ön nyert!' : 'Nem nyert!';
-  return {
-    szamok: temp,
-    talalat: temp.length,
-    message: message,
-  };
-};*/
 
 export const resetClass = () => {
   document

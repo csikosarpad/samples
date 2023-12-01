@@ -1,16 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  sendTheTip,
-  lotteryGame,
-  reset,
-  setGamerName,
-} from '../redux/lotterySlice';
+import { sendTheTip, lotteryGame, setGamerName } from '../redux/lotterySlice';
 
 import TicketDraw from './TicketDraw';
 import GamerResultsBoard from './GamerResultsBoard';
 import { getStorage, setStorage, formatPrice } from '../utils/utils';
 import { GAMER } from '../utils/constans';
+import GamerTickets from './GamerTickets';
 
 const Gamer = () => {
   const dispatch = useDispatch();
@@ -23,6 +19,7 @@ const Gamer = () => {
     (state) => state.gamerName || getStorage(GAMER.NAME)
   );
   const gamerVouchers = useSelector((state) => state.gamerVouchers);
+  const gamerUsedVouchers = useSelector((state) => state.gamerUsedVouchers);
   const gamerTicketResults = useSelector((state) => state.gamerTicketResults);
   const gamerFinancialBalance = useSelector(
     (state) => state.gamerFinancialBalance
@@ -35,9 +32,6 @@ const Gamer = () => {
     dispatch(sendTheTip());
   };
 
-  const handleNewPost = () => {
-    dispatch(reset());
-  };
   const handleLottery = () => {
     dispatch(lotteryGame());
   };
@@ -95,8 +89,13 @@ const Gamer = () => {
       <div className='tickets-place'>
         {gamerVouchers && (
           <>
+            <GamerTickets vouchers={gamerVouchers} />
+          </>
+        )}
+        {sentPost && gamerUsedVouchers && (
+          <>
             <GamerResultsBoard
-              vouchers={gamerVouchers}
+              vouchers={gamerUsedVouchers}
               ticketResults={gamerTicketResults}
             />
           </>
@@ -113,15 +112,8 @@ const Gamer = () => {
         </button>
       )}
 
-      <button
-        className='new-game design-button reset-button'
-        onClick={handleNewPost}
-      >
-        New Game
-      </button>
-
       {/*!sentPost && gamerVouchers.length > 0 && (*/}
-      {gamerVouchers.length > 0 && (
+      {gamerVouchers.length > 0 && gamerFinancialBalance > 0 && (
         <button className='play-the-game design-button' onClick={handleLottery}>
           Lotto Lottery
         </button>
