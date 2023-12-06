@@ -7,6 +7,7 @@ export const getStorage = (prop) => {
 export const setStorage = ({ key, value }) => {
   localStorage.setItem(key, value);
 };
+
 export const removeItemFromStorage = (key) => {
   localStorage.removeItem(key);
 };
@@ -28,7 +29,7 @@ const summarize = ({ lotteryNumbers, voucher }) => {
 };
 
 export const setTicketToUsed = (data) => {
-  return JSON.parse(JSON.stringify(data)).map((item) => {
+  return jsonParse(data).map((item) => {
     if (!item?.used) {
       return { used: true, voucher: item };
     } else {
@@ -37,16 +38,53 @@ export const setTicketToUsed = (data) => {
   });
 };
 
+export const setGamerFinancialBalance = ({
+  gamerFinancialBalance,
+  gamerTicketResults,
+}) => {
+  const winners = GAMERULES.WINS;
+  const priceOfTicket = GAMERULES.PRICE_OF_TICKET;
+  const { newItems } = gamerTicketResults;
+
+  const wins = newItems
+    .filter((item) => item.length > 1)
+    .map((item) => item.length);
+
+  const currentPrize = wins.reduce((accumulator, currentvalue) => {
+    const hitValue = winners.find((item) => item.hit === currentvalue);
+    const calculatedValue = hitValue.prize * priceOfTicket;
+    return accumulator + calculatedValue;
+  }, 0);
+  return gamerFinancialBalance + currentPrize;
+};
+
+const jsonParse = (obj) => JSON.parse(JSON.stringify(obj));
+
+const saveToStorage = ({ saveObject, keyPrefix, initialValue }) => {
+  //let NOT_NULL_VALUE = true;
+  if (Array.isArray(saveObject)) {
+    saveObject.forEach((item, index) => {
+      index += initialValue;
+      //const itemValue = NOT_NULL_VALUE ? parseInt(item * 1) : item;
+      setStorage({ key: `${keyPrefix}${index}`, value: item });
+    });
+  }
+};
+
 export const getResultsTickets = ({
   lotteryNumbers,
   vouchers,
-  initTicketResults,
+  storedTicketResults,
 }) => {
-  const initResults = JSON.parse(JSON.stringify(initTicketResults)) || [];
+  const initResults =
+    jsonParse(storedTicketResults)?.ticketResults?.length > 0
+      ? jsonParse(storedTicketResults)
+      : {
+          ticketResults: [],
+          newItems: [],
+        };
   let ticketResults = [];
-  const notUsedVouchers = JSON.parse(
-    JSON.stringify(vouchers.filter((item) => !item.used))
-  );
+  const notUsedVouchers = jsonParse(vouchers).filter((item) => !item.used);
   const nums = notUsedVouchers.length;
   const newItems = Array.from(Array(nums), () => []);
   notUsedVouchers.map(
@@ -55,9 +93,17 @@ export const getResultsTickets = ({
         ...summarize({ lotteryNumbers: lotteryNumbers, voucher: item }),
       ])
   );
-  ticketResults = initResults.concat(newItems);
+  ticketResults = initResults.ticketResults.concat(newItems);
+  saveToStorage({
+    saveObject: ticketResults,
+    keyPrefix: 'result_',
+    initialValue: 1,
+  });
 
-  return ticketResults;
+  return {
+    ticketResults,
+    newItems,
+  };
 };
 
 export const resetClass = () => {
@@ -70,6 +116,7 @@ export const resetStorage = () => {
   const gamerVoucherNumbers = getStorage('gamerVoucherNumbers');
   for (let i = 1; i <= gamerVoucherNumbers; i++) {
     removeItemFromStorage(`ticket_${i}`);
+    removeItemFromStorage(`result_${i}`);
   }
   removeItemFromStorage('gamerVoucherNumbers');
   removeItemFromStorage('gamerTotalPrice');

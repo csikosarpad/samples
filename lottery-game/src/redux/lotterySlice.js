@@ -6,6 +6,7 @@ import {
   setStorage,
   getResultsTickets,
   setTicketToUsed,
+  setGamerFinancialBalance,
 } from '../utils/utils';
 import { GAMER, BANK, GAMERULES } from '../utils/constans';
 
@@ -42,10 +43,14 @@ const lotterySlice = createSlice({
       state.gamerTicketResults = getResultsTickets({
         lotteryNumbers: state.lotteryNumbers,
         vouchers: state.gamerVouchers,
-        initTicketResults: state.gamerTicketResults,
+        storedTicketResults: state.gamerTicketResults,
       });
       state.gamerUsedVouchers = setTicketToUsed(state.gamerVouchers);
       state.gamerVouchers = setTicketToUsed(state.gamerVouchers);
+      state.gamerFinancialBalance = setGamerFinancialBalance({
+        gamerFinancialBalance: state.gamerFinancialBalance,
+        gamerTicketResults: state.gamerTicketResults,
+      });
       state.sentPost = true;
     },
     reset: () => {
@@ -57,8 +62,8 @@ const lotterySlice = createSlice({
       state.gamerName = action.payload;
     },
     setGamerTotalPrice: (state, action) => {
-      state.gamerFinancialBalance += action.payload;
-      state.gamerTotalPrice += action.payload;
+      //state.gamerFinancialBalance += action.payload;
+      //state.gamerTotalPrice += action.payload;
     },
     sendTheTip: (state) => {
       const actTips = Array.from(state.tips);
