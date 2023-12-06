@@ -17,11 +17,11 @@ const ascSort = (item1, item2) => item2.ticketPrize - item1.ticketPrize;
 const setList = ({ vouchers, ticketResults }) => {
   if (Array.isArray(vouchers)) {
     const returnList = vouchers.map((voucher, voucherIndex) => {
-      const tipHits = ticketResults[voucherIndex]?.length;
+      const tipHits = ticketResults.ticketResults[voucherIndex]?.length || 0;
       const currentTicketPrize = currentPrize(tipHits) * GAMER.PRICE_OF_TICKET;
       const oneTicket = {
         numbers: voucher,
-        hits: ticketResults[voucherIndex],
+        hits: ticketResults.ticketResults[voucherIndex],
         ticketPrize: currentTicketPrize,
       };
       return oneTicket;
@@ -83,7 +83,7 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
   }, [vouchers, ticketResults]);
 
   return (
-    <div className='vouchers-list'>
+    <div className='vouchers-list played-tickets'>
       {vouchers.length > 0 && (
         <>
           <h4 className={order ? 'desc' : 'asc'} onClick={onHandleVouchersList}>

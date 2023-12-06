@@ -164,6 +164,9 @@ body {
             flex-direction: row-reverse;
 
             .vouchers-list {
+                padding: 5px;
+                border-radius: 5px;
+
                 h4 {
                     text-align: center;
                     padding: 0 0 10px;
@@ -260,6 +263,28 @@ body {
                         }
                     }
                 }
+
+                &.played-tickets {
+                    box-shadow: 0 0 2px rgba($color: #bfa6a6, $alpha: 1);
+
+                    .vouchers {
+                        .default {
+                            .tipp {
+                                color: rgba($color: #ffffff, $alpha: .3);
+                            }
+                        }
+
+                        .win {
+                            .tipp {
+                                color: rgba($color: #fff, $alpha: 0.8);
+
+                                &.hit {
+                                    color: rgba($color: #ff0000, $alpha: 0.8);
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             .board {
@@ -275,6 +300,7 @@ body {
                 flex-wrap: wrap;
                 gap: 10px;
                 margin-bottom: 20px;
+                max-height: 265px;
 
                 p {
                     font-size: 2rem;
@@ -350,6 +376,7 @@ body {
 
         .lottery-numbers {
             color: #fff;
+            font-size: 2rem;
         }
 
         .result {

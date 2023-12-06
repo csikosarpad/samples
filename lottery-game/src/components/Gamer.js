@@ -79,7 +79,9 @@ const Gamer = () => {
         })}
       </p>
       {lotteryNumbers && (
-        <p className='lottery-numbers'>{lotteryNumbers.toString()}</p>
+        <p className='lottery-numbers'>
+          The last lottery numbers: {lotteryNumbers.toString()}
+        </p>
       )}
       {result.talalat && (
         <p className='result'>

@@ -1,3 +1,9 @@
+export const STORAGE_VARIABLES = {
+  GAMER_VOUCHER_NUMBERS: 'gamerVoucherNumbers',
+  GAMER_TOTAL_PRICE: 'gamerTotalPrice',
+  TICKET: 'ticket_',
+};
+
 export const GAMER = {
   NAME: 'lotteryGamer',
   MONEY: 'lotteryGamerMoney',
@@ -18,6 +24,7 @@ export const BANK = {
 };
 
 export const GAMERULES = {
+  PRICE_OF_TICKET: 500,
   MAXNUM: 39,
   WINS: [
     { hit: 2, prize: 2 },
