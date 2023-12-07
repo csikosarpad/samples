@@ -8,8 +8,6 @@ export const GAMER = {
   NAME: 'lotteryGamer',
   MONEY: 'lotteryGamerMoney',
   INITMONEY: 10000,
-  PRICE_OF_TICKET: 500,
-  CURRENCY: 'akcse',
   FINANCIAL_BALANCE: 10000,
   VOUCHERS: [],
 };
@@ -18,12 +16,11 @@ export const BANK = {
   NAME: 'lotteryBank',
   MONEY: 'lotteryBankMoney',
   INITMONEY: 0,
-  PRICE_OF_TICKET: 500,
-  CURRENCY: 'akcse',
   FINANCIAL_BALANCE: 0,
 };
 
 export const GAMERULES = {
+  CURRENCY: 'akcse',
   PRICE_OF_TICKET: 500,
   MAXNUM: 39,
   WINS: [

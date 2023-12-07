@@ -51,6 +51,10 @@ const lotterySlice = createSlice({
         gamerFinancialBalance: state.gamerFinancialBalance,
         gamerTicketResults: state.gamerTicketResults,
       });
+      setStorage({
+        key: 'gamerFinancialBalance',
+        value: state.gamerFinancialBalance,
+      });
       state.sentPost = true;
     },
     reset: () => {
@@ -61,16 +65,40 @@ const lotterySlice = createSlice({
     setGamerName: (state, action) => {
       state.gamerName = action.payload;
     },
-    setGamerTotalPrice: (state, action) => {
-      //state.gamerFinancialBalance += action.payload;
-      //state.gamerTotalPrice += action.payload;
+    setGamerTotalPrice: (state, action) => {},
+    setGamerVoucherNumbers: (state, action) => {
+      state.gamerVoucherNumbers = action.payload;
+    },
+    setGamerVouchers: (state, action) => {
+      state.gamerVouchers = action.payload;
+    },
+    setGamerTicketResults: (state, action) => {
+      state.gamerTicketResults = action.payload;
+    },
+    setGamerUsedVouchers: (state, action) => {
+      state.gamerUsedVouchers = action.payload;
+    },
+    setBankFinancialBalance: (state, action) => {
+      state.bankFinancialBalance = action.payload;
+    },
+    setGamerFinancialBalanceState: (state, action) => {
+      state.gamerFinancialBalance = action.payload;
     },
     sendTheTip: (state) => {
       const actTips = Array.from(state.tips);
       state.gamerVoucherNumbers++;
-      state.gamerFinancialBalance -= GAMER.PRICE_OF_TICKET;
-      state.bankFinancialBalance += GAMER.PRICE_OF_TICKET;
+      state.gamerFinancialBalance -= GAMERULES.PRICE_OF_TICKET;
+      state.bankFinancialBalance += GAMERULES.PRICE_OF_TICKET;
       state.gamerVouchers = [...state.gamerVouchers, actTips];
+
+      setStorage({
+        key: 'gamerFinancialBalance',
+        value: state.gamerFinancialBalance,
+      });
+      setStorage({
+        key: 'bankFinancialBalance',
+        value: state.bankFinancialBalance,
+      });
       setStorage({
         key: 'gamerVoucherNumbers',
         value: state.gamerVoucherNumbers,
@@ -79,6 +107,7 @@ const lotterySlice = createSlice({
         key: `ticket_${state.gamerVoucherNumbers}`,
         value: actTips,
       });
+
       state.canPost = false;
       state.tips = [];
       state.ticketClickCounter = 0;
@@ -113,6 +142,12 @@ export const {
   reset,
   setGamerName,
   setGamerTotalPrice,
+  setGamerVoucherNumbers,
+  setGamerVouchers,
+  setGamerTicketResults,
+  setGamerUsedVouchers,
+  setBankFinancialBalance,
+  setGamerFinancialBalanceState,
 } = lotterySlice.actions;
 
 export default lotteryReducer;

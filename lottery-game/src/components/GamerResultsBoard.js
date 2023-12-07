@@ -18,7 +18,8 @@ const setList = ({ vouchers, ticketResults }) => {
   if (Array.isArray(vouchers)) {
     const returnList = vouchers.map((voucher, voucherIndex) => {
       const tipHits = ticketResults.ticketResults[voucherIndex]?.length || 0;
-      const currentTicketPrize = currentPrize(tipHits) * GAMER.PRICE_OF_TICKET;
+      const currentTicketPrize =
+        currentPrize(tipHits) * GAMERULES.PRICE_OF_TICKET;
       const oneTicket = {
         numbers: voucher,
         hits: ticketResults.ticketResults[voucherIndex],
@@ -50,7 +51,7 @@ const TicketList = ({ tickets }) => {
                 </span>
               );
             })}
-            <span className='tipp'>{ticketPrize}</span>
+            <span className='tipp ticket-prize'>{ticketPrize}</span>
           </li>
         );
       })}
