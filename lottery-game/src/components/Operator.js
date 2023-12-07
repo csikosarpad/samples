@@ -116,12 +116,12 @@ const Operator = () => {
         </button>
       )}
       <div className='tickets-place operator'>
-        <button
+        {/*<button
           className='new-gamer design-button-little'
           onClick={onHandleNewModal}
         >
           New Virtual Gamer
-        </button>
+      </button> */}
         {modal && (
           <div className='new-gamer-form'>
             <label>
@@ -145,7 +145,6 @@ const Operator = () => {
             </button>
           </div>
         )}
-        {newGamer.toString()}
         <button onClick={onStorageLoadHandler}>Load</button>
       </div>
     </>
