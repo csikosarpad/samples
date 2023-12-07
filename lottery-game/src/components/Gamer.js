@@ -5,7 +5,7 @@ import { sendTheTip, lotteryGame, setGamerName } from '../redux/lotterySlice';
 import TicketDraw from './TicketDraw';
 import GamerResultsBoard from './GamerResultsBoard';
 import { getStorage, setStorage, formatPrice } from '../utils/utils';
-import { GAMER } from '../utils/constans';
+import { GAMER, GAMERULES } from '../utils/constans';
 import GamerTickets from './GamerTickets';
 
 const Gamer = () => {
@@ -62,14 +62,14 @@ const Gamer = () => {
             {gamerName}
             {': '}
             <i>
-              {formatPrice(gamerFinancialBalance)} {GAMER.CURRENCY}
+              {formatPrice(gamerFinancialBalance)} {GAMERULES.CURRENCY}
             </i>
             {' - '}
           </span>
         )}
         Bank:{' '}
         <i>
-          {formatPrice(bankFinancialBalance)} {GAMER.CURRENCY}
+          {formatPrice(bankFinancialBalance)} {GAMERULES.CURRENCY}
         </i>
       </h3>
 
@@ -108,7 +108,7 @@ const Gamer = () => {
         <button className='send-ticket design-button' onClick={handleSend}>
           Buy ticket{' '}
           <span className='price-of-ticket'>
-            {GAMER.PRICE_OF_TICKET} {GAMER.CURRENCY}{' '}
+            {GAMERULES.PRICE_OF_TICKET} {GAMERULES.CURRENCY}{' '}
           </span>
           and Send
         </button>

@@ -16,7 +16,7 @@ const TicketDraw = () => {
   const tickets = [];
   const maxNumber = lotteryRange.maxNum;
 
-  const panelClassName = canPost ? 'board fill' : 'board';
+  const panelClassName = canPost ? 'board filled' : 'board';
 
   let iterator = lotteryRange.minNum;
   while (iterator <= maxNumber) {

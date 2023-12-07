@@ -112,6 +112,56 @@ export const resetClass = () => {
     .forEach((item) => item.classList.remove('selected'));
 };
 
+const convertToInt = (stringArray) => {
+  if (Array.isArray(stringArray) && stringArray[0].length > 0) {
+    return stringArray.map((item) => parseInt(item));
+  } else {
+    return [];
+  }
+};
+
+export const loadFromStorage = () => {
+  const gamerName = getStorage('lotteryGamer');
+  const gamerVoucherNumbers = parseInt(getStorage('gamerVoucherNumbers'));
+  const gamerVouchers = [];
+  let gamerTicketResults = {
+    ticketResults: [],
+  };
+  const gamerUsedVouchers = [];
+
+  for (let i = 1; i <= gamerVoucherNumbers; i++) {
+    if (getStorage(`result_${i}`) !== null) {
+      gamerTicketResults.ticketResults.push(
+        convertToInt(getStorage(`result_${i}`).split(','))
+      );
+      gamerUsedVouchers.push({
+        used: true,
+        voucher: convertToInt(getStorage(`ticket_${i}`).split(',')),
+      });
+      gamerVouchers.push({
+        used: true,
+        voucher: convertToInt(getStorage(`ticket_${i}`).split(',')),
+      });
+    } else {
+      gamerVouchers.push(convertToInt(getStorage(`ticket_${i}`).split(',')));
+    }
+  }
+
+  const bankFinancialBalance = getStorage('bankFinancialBalance');
+  const gamerFinancialBalance = getStorage('gamerFinancialBalance');
+  const requiredStorageContent = {
+    gamerName,
+    gamerVoucherNumbers,
+    gamerVouchers,
+    gamerTicketResults,
+    gamerUsedVouchers,
+    gamerTicketResults,
+    bankFinancialBalance,
+    gamerFinancialBalance,
+  };
+  return requiredStorageContent;
+};
+
 export const resetStorage = () => {
   const gamerVoucherNumbers = getStorage('gamerVoucherNumbers');
   for (let i = 1; i <= gamerVoucherNumbers; i++) {

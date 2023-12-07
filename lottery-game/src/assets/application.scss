@@ -166,6 +166,7 @@ body {
             .vouchers-list {
                 padding: 5px;
                 border-radius: 5px;
+                max-width: 215px;
 
                 h4 {
                     text-align: center;
@@ -190,6 +191,7 @@ body {
                 .vouchers {
                     margin: 0;
                     list-style-type: none;
+                    padding: 0;
 
                     li {
                         justify-content: space-around;
@@ -216,6 +218,10 @@ body {
 
                             &.hit {
                                 color: rgba($color: #ff0000, $alpha: 1);
+                            }
+
+                            &.ticket-prize {
+                                min-width: 36px;
                             }
                         }
 
@@ -249,15 +255,17 @@ body {
                 .summary {
                     margin: 0;
                     list-style-type: none;
-                    padding-top: 6px;
+                    padding: 6px 0 0 0;
 
                     li {
                         justify-content: space-around;
                         border-top: 1px solid rgba($color: #fff, $alpha: .5);
                         color: grey;
                         line-height: 2rem;
+                        text-align: right;
 
                         span {
+                            display: block;
                             font-weight: bold;
                             text-decoration: underline;
                         }
@@ -268,9 +276,14 @@ body {
                     box-shadow: 0 0 2px rgba($color: #bfa6a6, $alpha: 1);
 
                     .vouchers {
+                        .ticket-prize {
+                            text-align: right;
+                        }
+
                         .default {
-                            .tipp {
+                            .tipp:not(.ticket-prize) {
                                 color: rgba($color: #ffffff, $alpha: .3);
+                                text-decoration: line-through;
                             }
                         }
 
@@ -301,6 +314,7 @@ body {
                 gap: 10px;
                 margin-bottom: 20px;
                 max-height: 265px;
+                align-content: center;
 
                 p {
                     font-size: 2rem;
@@ -324,7 +338,6 @@ body {
                     &.selected {
                         color: #fff;
 
-                        /*background-color: rgba($color: #000, $alpha: .4);*/
                         &::after {
                             content: "X";
                             position: absolute;
@@ -336,16 +349,33 @@ body {
                         &:hover::after {
                             font-size: 2rem;
                         }
-
                     }
 
                     &:hover {
                         color: #fff;
-                        /*background-color: rgba($color: #000, $alpha: .4);*/
                         box-shadow: 0 0 5px rgba($color: #7f7b7b, $alpha: .4), 0 0 10px rgba($color: #ffffff, $alpha: 1);
                     }
                 }
+
+                &.filled {
+                    .ticket {
+                        color: rgba(128, 128, 128, 0.1);
+
+                        &:not(.selected):hover {
+                            box-shadow: none;
+                        }
+
+                        &.selected {
+                            color: #fff;
+                        }
+                    }
+                }
             }
+
+            &.operator {
+                flex-direction: column;
+            }
+
         }
 
 
