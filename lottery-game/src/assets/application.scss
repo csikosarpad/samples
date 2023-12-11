@@ -288,7 +288,13 @@ body {
                     }
 
                     &.played-tickets {
+                        padding-top: 60px;
+
                         box-shadow: 0 0 2px rgba($color: #bfa6a6, $alpha: 1);
+
+                        &.has-results {
+                            padding-top: 0;
+                        }
 
                         .vouchers {
                             .ticket-prize {

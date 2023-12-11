@@ -83,9 +83,19 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
     setNewList(setList({ vouchers, ticketResults }));
   }, [vouchers, ticketResults]);
 
+  const hasResult = () => {
+    return gamerCurrentTotalPrice > 0;
+  };
+
+  const hasResultClassName = () => {
+    return hasResult()
+      ? 'vouchers-list played-tickets has-results'
+      : 'vouchers-list played-tickets';
+  };
+
   return (
-    <div className='vouchers-list played-tickets'>
-      {gamerCurrentTotalPrice > 0 && (
+    <div className={hasResultClassName()}>
+      {hasResult() && (
         <ul className='ticket summary'>
           <li>
             Your total winnings:
