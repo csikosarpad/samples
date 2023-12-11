@@ -61,11 +61,9 @@ export const setGamerFinancialBalance = ({
 const jsonParse = (obj) => JSON.parse(JSON.stringify(obj));
 
 const saveToStorage = ({ saveObject, keyPrefix, initialValue }) => {
-  //let NOT_NULL_VALUE = true;
   if (Array.isArray(saveObject)) {
     saveObject.forEach((item, index) => {
       index += initialValue;
-      //const itemValue = NOT_NULL_VALUE ? parseInt(item * 1) : item;
       setStorage({ key: `${keyPrefix}${index}`, value: item });
     });
   }
@@ -124,7 +122,7 @@ export const loadFromStorage = () => {
   const gamerName = getStorage('lotteryGamer');
   const gamerVoucherNumbers = parseInt(getStorage('gamerVoucherNumbers'));
   const gamerVouchers = [];
-  let gamerTicketResults = {
+  const gamerTicketResults = {
     ticketResults: [],
   };
   const gamerUsedVouchers = [];
@@ -155,7 +153,6 @@ export const loadFromStorage = () => {
     gamerVouchers,
     gamerTicketResults,
     gamerUsedVouchers,
-    gamerTicketResults,
     bankFinancialBalance,
     gamerFinancialBalance,
   };

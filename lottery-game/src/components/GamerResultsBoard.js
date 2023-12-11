@@ -85,6 +85,17 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
 
   return (
     <div className='vouchers-list played-tickets'>
+      {gamerCurrentTotalPrice > 0 && (
+        <ul className='ticket summary'>
+          <li>
+            Your total winnings:
+            <span>
+              {gamerCurrentTotalPrice} {GAMER.CURRENCY}
+            </span>
+          </li>
+        </ul>
+      )}
+
       {vouchers.length > 0 && (
         <>
           <h4 className={order ? 'desc' : 'asc'} onClick={onHandleVouchersList}>
@@ -93,16 +104,6 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
           <ol className='ticket vouchers'>
             <TicketList tickets={newList} />
           </ol>
-          {gamerCurrentTotalPrice > 0 && (
-            <ul className='ticket summary'>
-              <li>
-                Your total winnings:
-                <span>
-                  {gamerCurrentTotalPrice} {GAMER.CURRENCY}
-                </span>
-              </li>
-            </ul>
-          )}
         </>
       )}
     </div>
