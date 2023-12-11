@@ -83,8 +83,29 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
     setNewList(setList({ vouchers, ticketResults }));
   }, [vouchers, ticketResults]);
 
+  const hasResult = () => {
+    return gamerCurrentTotalPrice > 0;
+  };
+
+  const hasResultClassName = () => {
+    return hasResult()
+      ? 'vouchers-list played-tickets has-results'
+      : 'vouchers-list played-tickets';
+  };
+
   return (
-    <div className='vouchers-list played-tickets'>
+    <div className={hasResultClassName()}>
+      {hasResult() && (
+        <ul className='ticket summary'>
+          <li>
+            Your total winnings:
+            <span>
+              {gamerCurrentTotalPrice} {GAMER.CURRENCY}
+            </span>
+          </li>
+        </ul>
+      )}
+
       {vouchers.length > 0 && (
         <>
           <h4 className={order ? 'desc' : 'asc'} onClick={onHandleVouchersList}>
@@ -93,16 +114,6 @@ const GamerResultsBoard = ({ vouchers, ticketResults }) => {
           <ol className='ticket vouchers'>
             <TicketList tickets={newList} />
           </ol>
-          {gamerCurrentTotalPrice > 0 && (
-            <ul className='ticket summary'>
-              <li>
-                Your total winnings:
-                <span>
-                  {gamerCurrentTotalPrice} {GAMER.CURRENCY}
-                </span>
-              </li>
-            </ul>
-          )}
         </>
       )}
     </div>

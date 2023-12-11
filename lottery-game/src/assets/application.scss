@@ -13,7 +13,7 @@ body {
         align-content: center;
         align-items: center;
         justify-content: space-around;
-        padding: 30px 0;
+        padding: 15px 0;
         border-bottom: 5px solid rgba(134, 98, 142, 0.6);
 
         .icon {
@@ -22,8 +22,8 @@ body {
             outline: 1px dashed rgba(189, 43, 222, 0.60);
 
             &.icon-person {
-                width: 48px;
-                height: 48px;
+                width: 30px;
+                height: 30px;
                 border-radius: 50%;
                 padding: 20px;
                 background: url(icon-iron-man-wh-48.png) no-repeat center center;
@@ -59,8 +59,12 @@ body {
 
                     i {
                         font-size: 1.6rem;
-                        color: rgba($color: #ffffff, $alpha: 1);
+                        color: black;
                         transform: rotate(-1440deg);
+                        font-weight: bold;
+                        background: rgba(255, 255, 255, .4);
+                        padding: 3px 10px;
+                        border-radius: 10px;
                     }
 
                 }
@@ -107,7 +111,7 @@ body {
 
         .send-ticket {
             right: 50px;
-            top: 150px;
+            top: 100px;
             width: 200px;
             height: 80px;
             border-radius: 50px;
@@ -161,138 +165,156 @@ body {
 
         .tickets-place {
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: column-reverse;
 
-            .vouchers-list {
-                padding: 5px;
-                border-radius: 5px;
-                max-width: 215px;
+            .tickets-and-results {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-around;
 
-                h4 {
-                    text-align: center;
-                    padding: 0 0 10px;
-                    margin: 0;
-                    color: white;
-                    position: relative;
+                .vouchers-list {
+                    padding: 5px;
+                    border-radius: 5px;
+                    max-width: 240px;
 
-                    &.desc:after {
-                        content: '^';
-                        font-size: 0.8rem;
-                        padding: 3px 5px;
+                    &:first-child {
+                        margin-top: 60px;
                     }
 
-                    &.asc:after {
-                        content: 'ˇ';
-                        font-size: 0.8rem;
-                        padding: 3px 5px;
-                    }
-                }
+                    h4 {
+                        text-align: center;
+                        padding: 0 0 10px;
+                        margin: 0;
+                        color: white;
+                        position: relative;
 
-                .vouchers {
-                    margin: 0;
-                    list-style-type: none;
-                    padding: 0;
-
-                    li {
-                        justify-content: space-around;
-                        border-top: 1px solid rgba($color: #fff, $alpha: .5);
-                        color: grey;
-                        line-height: 1.3rem;
-
-                        &:first-child {
-                            border-top: none;
+                        &.desc:after {
+                            content: '^';
+                            font-size: 0.8rem;
+                            padding: 3px 5px;
                         }
 
-                        .tipp {
-                            display: inline-block;
-                            min-width: 24px;
-                            margin: 0;
-                            padding: 4px;
-                            color: rgba(255, 255, 255, .5);
-                            text-align: right;
-                            border-left: 1px solid rgba($color: #fff, $alpha: .5);
-
-                            &:first-child {
-                                border-left: none;
-                            }
-
-                            &.hit {
-                                color: rgba($color: #ff0000, $alpha: 1);
-                            }
-
-                            &.ticket-prize {
-                                min-width: 36px;
-                            }
-                        }
-
-                        &.win {
-                            background-color: rgba($color: #7f7b7b, $alpha: .4);
-                            font-weight: bold;
-
-                            .tipp {
-                                color: #fff;
-
-                                &.hit {
-                                    color: rgba($color: #ff0000, $alpha: 1);
-                                }
-                            }
-                        }
-
-                        &.loose {
-                            .tipp {
-                                color: grey;
-
-                                &.hit {
-                                    color: rgba($color: #ff0000, $alpha: 1);
-                                }
-
-                            }
-                        }
-
-                    }
-                }
-
-                .summary {
-                    margin: 0;
-                    list-style-type: none;
-                    padding: 6px 0 0 0;
-
-                    li {
-                        justify-content: space-around;
-                        border-top: 1px solid rgba($color: #fff, $alpha: .5);
-                        color: grey;
-                        line-height: 2rem;
-                        text-align: right;
-
-                        span {
-                            display: block;
-                            font-weight: bold;
-                            text-decoration: underline;
+                        &.asc:after {
+                            content: 'ˇ';
+                            font-size: 0.8rem;
+                            padding: 3px 5px;
                         }
                     }
-                }
-
-                &.played-tickets {
-                    box-shadow: 0 0 2px rgba($color: #bfa6a6, $alpha: 1);
 
                     .vouchers {
-                        .ticket-prize {
-                            text-align: right;
-                        }
+                        margin: 0;
+                        list-style-type: none;
+                        padding: 0;
 
-                        .default {
-                            .tipp:not(.ticket-prize) {
-                                color: rgba($color: #ffffff, $alpha: .3);
-                                text-decoration: line-through;
+                        li {
+                            justify-content: space-around;
+                            border-top: 1px solid rgba($color: #fff, $alpha: .5);
+                            color: grey;
+                            line-height: 1.3rem;
+
+                            &:first-child {
+                                border-top: none;
                             }
-                        }
 
-                        .win {
                             .tipp {
-                                color: rgba($color: #fff, $alpha: 0.8);
+                                display: inline-block;
+                                min-width: 24px;
+                                margin: 0;
+                                padding: 4px;
+                                color: rgba(255, 255, 255, .5);
+                                text-align: right;
+                                border-left: 1px solid rgba($color: #fff, $alpha: .5);
+
+                                &:first-child {
+                                    border-left: none;
+                                }
 
                                 &.hit {
-                                    color: rgba($color: #ff0000, $alpha: 0.8);
+                                    color: rgba($color: #ff0000, $alpha: 1);
+                                }
+
+                                &.ticket-prize {
+                                    min-width: 36px;
+                                }
+                            }
+
+                            &.win {
+                                background-color: rgba($color: #7f7b7b, $alpha: .4);
+                                font-weight: bold;
+
+                                .tipp {
+                                    color: #fff;
+
+                                    &.hit {
+                                        color: rgba($color: #ff0000, $alpha: 1);
+                                    }
+                                }
+                            }
+
+                            &.loose {
+                                .tipp {
+                                    color: grey;
+
+                                    &.hit {
+                                        color: rgba($color: #ff0000, $alpha: 1);
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+
+                    .summary {
+                        margin: 0;
+                        list-style-type: none;
+                        padding: 6px 0 0 0;
+                        margin-bottom: 8px;
+                        background: rgba(0, 0, 0, .4);
+
+                        li {
+                            justify-content: space-around;
+                            color: grey;
+                            line-height: 1.4rem;
+                            text-align: right;
+                            padding: 0 5px 0 0;
+
+                            span {
+                                display: block;
+                                font-weight: bold;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    &.played-tickets {
+                        padding-top: 60px;
+
+                        box-shadow: 0 0 2px rgba($color: #bfa6a6, $alpha: 1);
+
+                        &.has-results {
+                            padding-top: 0;
+                        }
+
+                        .vouchers {
+                            .ticket-prize {
+                                text-align: right;
+                            }
+
+                            .default {
+                                .tipp:not(.ticket-prize) {
+                                    color: rgba($color: #ffffff, $alpha: .3);
+                                    text-decoration: line-through;
+                                }
+                            }
+
+                            .win {
+                                .tipp {
+                                    color: rgba($color: #fff, $alpha: 0.8);
+
+                                    &.hit {
+                                        color: rgba($color: #ff0000, $alpha: 0.8);
+                                    }
                                 }
                             }
                         }
@@ -322,14 +344,14 @@ body {
                 }
 
                 .ticket {
-                    width: 45px;
-                    height: 45px;
+                    width: 35px;
+                    height: 35px;
                     display: flex;
                     color: rgba(255, 255, 255, 0.4);
                     justify-content: center;
                     align-items: center;
                     outline: 1px dotted rgba(255, 255, 255, 0.7);
-                    font-size: 2rem;
+                    font-size: 1.6rem;
                     font-weight: bold;
                     cursor: pointer;
                     border-radius: 5px;
@@ -341,8 +363,8 @@ body {
                         &::after {
                             content: "X";
                             position: absolute;
-                            color: rgba(255, 0, 0, .7);
-                            font-size: 4rem;
+                            color: rgba(255, 0, 0, 0.7);
+                            font-size: 3rem;
                             transition: all 0.2s ease-in;
                         }
 
@@ -383,7 +405,7 @@ body {
             display: flex;
             height: 30px;
             gap: 10px;
-            margin: 20px 0 70px;
+            margin: 20px 0;
 
             .tip {
                 display: flex;
@@ -391,11 +413,11 @@ body {
                 align-items: center;
                 justify-content: center;
                 flex-direction: row;
-                font-size: 2rem;
+                font-size: 1.6rem;
                 color: #fff;
                 border-radius: 50%;
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
 
                 background-color: rgba($color: #292c32, $alpha: 1);
                 box-shadow: 0 0 5px rgba($color: #7f7b7b, $alpha: .2),
@@ -406,7 +428,7 @@ body {
 
         .lottery-numbers {
             color: #fff;
-            font-size: 2rem;
+            font-size: 1.4rem;
         }
 
         .result {

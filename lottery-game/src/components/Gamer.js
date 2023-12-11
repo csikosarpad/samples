@@ -89,19 +89,21 @@ const Gamer = () => {
         </p>
       )}
       <div className='tickets-place'>
-        {gamerVouchers && (
-          <>
-            <GamerTickets vouchers={gamerVouchers} />
-          </>
-        )}
-        {sentPost && gamerUsedVouchers && (
-          <>
-            <GamerResultsBoard
-              vouchers={gamerUsedVouchers}
-              ticketResults={gamerTicketResults}
-            />
-          </>
-        )}
+        <div className='tickets-and-results'>
+          {gamerVouchers && (
+            <>
+              <GamerTickets vouchers={gamerVouchers} />
+            </>
+          )}
+          {sentPost && gamerUsedVouchers && (
+            <>
+              <GamerResultsBoard
+                vouchers={gamerUsedVouchers}
+                ticketResults={gamerTicketResults}
+              />
+            </>
+          )}
+        </div>
         <TicketDraw />
       </div>
       {canPost && (
