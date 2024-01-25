@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: black;
+  background-color: white;
+  position: relative;
+}
+
+.container {
+  background-color: lightgrey;
+}
+
+.container .box {
+  /*outline: 1px solid #000;*/
+  border: 1px solid #000;
+  text-decoration: underline;
+  padding: 10px;
+  margin: 5px;
+}
+
+.flex-container {
+  background-color: lightgreen;
+  display: flex;
+  flex-direction: row;
+  /*flex-wrap: wrap;*/
+  /*gap: 10px;*/
+}
+
+.flex-container > * {
+  flex: 1;
+  /*flex-grow: 1;
+  flex-basis: 33%;*/
+}
+
+.grid-container {
+  background-color: lightskyblue;
+  display: grid;
+  /*grid-auto-flow: column;*/
+  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}
