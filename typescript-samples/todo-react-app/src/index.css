@@ -66,3 +66,21 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.todo-list-container {
+  display: flex;
+  flex-direction: column;
+  .todo-list {
+    text-align: left;
+    list-style-type: decimal-leading-zero;
+    li {
+      color: green;
+      &.completed {
+        text-decoration: line-through;
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+    input[type='checkbox'] {
+      cursor: pointer;
+    }
+  }
+}
