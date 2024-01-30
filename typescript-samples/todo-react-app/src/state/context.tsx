@@ -1,9 +1,11 @@
 import { createContext, useReducer } from 'react';
+import { loadTasks } from "../utils/actions";
+
 
 export const Context = createContext();
 
 const initialState = {
-    tasks: [],
+    tasks: loadTasks(),
 };
 
 function reducer(state, action) {

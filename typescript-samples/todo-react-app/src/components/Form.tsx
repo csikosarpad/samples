@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { Context } from '../state/context';
 import { saveTask } from "../utils/actions";
@@ -9,8 +9,6 @@ const Form: React.FC = () => {
     const { state, dispatch } = value;
     const tasks = state?.tasks;
 
-    //const inputRef = useRef<HTMLInputElement | null>(null);
-    //const initTasks = loadTasks();
     const [inputValue, setInputValue] = useState('');
 
     const handleOnSubmit = (ev: React.FormEvent<HTMLFormElement> | undefined): void => {
@@ -34,9 +32,7 @@ const Form: React.FC = () => {
 
 
     return <form id="todo-form" onSubmit={handleOnSubmit}>
-        <label>Add new task
-            <input type="text" value={inputValue} id="todo-title" onChange={e => setInputValue(e.target.value)} />
-        </label>
+        <input type="text" value={inputValue} id="todo-title" onChange={e => setInputValue(e.target.value)} />
         <button>Add</button>
     </form>
 
