@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { Context } from '../state/context';
-import { Task } from "../type/type";
+import { TodoContext } from '../state/context';
+import { ITodo } from "../@types/todo";
 import { saveTask } from "../utils/actions";
 
 const List = () => {
-    const value = useContext(Context);
+    const value = useContext(TodoContext);
     const { state, dispatch } = value;
     const tasks = state?.tasks;
 
     const completedTasks = tasks.filter(item => item.completed).length;
 
     const taskCheck = (id: string) => {
-        const updatedTasks = tasks.map((task: Task) => task.id === id ? { ...task, completed: !task.completed } : task);
+        const updatedTasks = tasks.map((task: ITodo) => task.id === id ? { ...task, completed: !task.completed } : task);
         dispatch({ type: 'updateTasks', payload: { values: updatedTasks } });
     }
 
@@ -32,7 +32,7 @@ const List = () => {
     return <div className="todo-list-container">
         <CompletedMessage />
         {tasks.length > 0 && <ul id="todo-list" className="todo-list">
-            {tasks.map((task: Task, index: number) => {
+            {tasks.map((task: ITodo, index: number) => {
                 return (
                     <li key={index} className={task.completed ? 'completed' : 'not-completed'}>
                         <input type="checkbox" checked={task.completed} onClick={() => taskCheck(task.id)} />{task.title}

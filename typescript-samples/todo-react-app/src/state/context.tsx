@@ -1,8 +1,9 @@
 import { createContext, useReducer } from 'react';
 import { loadTasks } from "../utils/actions";
+import { TodoContextType, ITodo } from '../@types/todo';
 
-
-export const Context = createContext();
+//export const Context = createContext();
+export const TodoContext = createContext<TodoContextType | null>(null);
 
 const initialState = {
     tasks: loadTasks(),
@@ -27,12 +28,13 @@ function reducer(state, action) {
     }
 }
 
-const Provider: React.FC = ({ children }) => {
+//const Provider: React.FC = ({ children }) => {
+const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
-        <Context.Provider value={{ state, dispatch }}> {children} </Context.Provider>
+        <TodoContext.Provider value={{ state, dispatch }}> {children} </TodoContext.Provider>
     );
 };
 
-export default Provider;
+export default TodoProvider;

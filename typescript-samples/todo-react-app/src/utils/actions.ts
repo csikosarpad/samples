@@ -1,4 +1,4 @@
-import { Task } from "../type/type";
+import { Task } from "../@types/todo";
 
 export const saveTask = (tasks: Task): void => {
     localStorage.setItem("TASKS", JSON.stringify(tasks));
