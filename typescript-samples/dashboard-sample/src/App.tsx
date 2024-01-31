@@ -1,48 +1,68 @@
-import {
-  Outlet,
-  Link,
-  createBrowserRouter,
-  RouterProvider,
-  useNavigation,
-} from "react-router-dom";
+import * as React from "react";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
 
-import './App.css';
+const About = React.lazy(() => import("./pages/About"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 
-const Layout = () => {
-  const navigation = useNavigation();
-
+export default function App() {
   return (
     <div>
-      <h1>Lazy Loading Example using RouterProvider</h1>
+      <h1>Lazy Loading Example</h1>
 
       <p>
-        This example demonstrates how to lazily load route definitions using{" "}
-        <code>route.lazy()</code>. To get the full effect of this demo, be sure
-        to open your Network tab and watch the new bundles load dynamically as
-        you navigate around.
+        This example demonstrates how to lazily load both route elements and
+        even entire portions of your route hierarchy on demand. To get the full
+        effect of this demo, be sure to open your Network tab and watch the new
+        bundles load dynamically as you navigate around.
       </p>
 
       <p>
-        The "About" and "Dashboard" pages are not loaded until you click on the
-        link. When you do, the code is loaded via a dynamic{" "}
-        <code>import()</code> statement during the <code>loading</code> phase of
-        the navigation. Once the code loads, the route loader executes, and then
-        the element renders with the loader-provided data.
+        The "About" page is not loaded until you click on the link. When you do,
+        a <code>&lt;React.Suspense fallback&gt;</code> renders while the code is
+        loaded via a dynamic <code>import()</code> statement. Once the code
+        loads, the fallback is replaced by the actual code for that page.
       </p>
 
       <p>
-        This works for all data-loading/rendering related properties of a route,
-        including <code>action</code>, <code>loader</code>, <code>element</code>
-        , <code>errorElement</code>, and <code>shouldRevalidate</code>. You
-        cannot return path-matching properties from <code>lazy()</code> such as{" "}
-        <code>path</code>, <code>index</code>, <code>children</code>, and{" "}
-        <code>caseSensitive</code>.
+        The "Dashboard" page does the same thing, but takes it even one step
+        further by <em>dynamically defining additional routes</em> once the page
+        loads! Since React Router lets you declare your routes as
+        <code>&lt;Route&gt;</code> elements, you can easily define more routes
+        by placing an additional <code>&lt;Routes&gt;</code> element anywhere
+        further down the element tree. Just be sure the parent route ends with a{" "}
+        <code>*</code> like <code>&lt;Route path="dashboard/*"&gt;</code> in
+        this case.
       </p>
 
-      <div style={{ position: "fixed", top: 0, right: 0 }}>
-        {navigation.state !== "idle" && <p>Navigation in progress...</p>}
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="about"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <About />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="dashboard/*"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <Dashboard />
+              </React.Suspense>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </div>
+  );
+}
 
+function Layout() {
+  return (
+    <div>
       <nav>
         <ul>
           <li>
@@ -64,7 +84,7 @@ const Layout = () => {
   );
 }
 
-const Home = () => {
+function Home() {
   return (
     <div>
       <h2>Home</h2>
@@ -72,7 +92,7 @@ const Home = () => {
   );
 }
 
-const NoMatch = () => {
+function NoMatch() {
   return (
     <div>
       <h2>Nothing to see here!</h2>
@@ -82,62 +102,3 @@ const NoMatch = () => {
     </div>
   );
 }
-
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "about",
-        // Single route in lazy file
-        lazy: () => import("./pages/About.tsx"),
-      },
-      {
-        path: "dashboard",
-        async lazy() {
-          // Multiple routes in lazy file
-          let { DashboardLayout } = await import("./pages/Dashboard.tsx");
-          return { Component: DashboardLayout };
-        },
-        children: [
-          {
-            index: true,
-            async lazy() {
-              let { DashboardIndex } = await import("./pages/Dashboard.tsx");
-              return { Component: DashboardIndex };
-            },
-          },
-          {
-            path: "messages",
-            async lazy() {
-              let { dashboardMessagesLoader, DashboardMessages } = await import(
-                "./pages/Dashboard.tsx"
-              );
-              return {
-                loader: dashboardMessagesLoader,
-                Component: DashboardMessages,
-              };
-            },
-          },
-        ],
-      },
-      /*{
-        path: "*",
-        element: <NoMatch />,
-      },*/
-    ],
-  },
-]);
-
-const App = () => {
-  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
-}
-
-export default App;
