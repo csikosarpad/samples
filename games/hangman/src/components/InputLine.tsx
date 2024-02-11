@@ -42,6 +42,15 @@ const InputLine = () => {
     setCharacters(resort.toString());
   }
 
+  const gameStart = () => {
+    const [szo, jatek] = sorsol();
+    setLetter('');
+    setCharacters('')
+    setTips(new Set());
+    setGameWord(szo);
+    setGameWordSpace(jatek);
+  }
+
   useEffect(() => {
     setGameWordSpace(betukereso({ szo: gameWord, megoldando: gameWordSpace, letter: letter }));
   }, [letter]);
@@ -64,10 +73,7 @@ const InputLine = () => {
   }, [tips]);
 
   useEffect(() => {
-    const [szo, jatek] = sorsol();
-    setGameWord(szo);
-    setGameWordSpace(jatek);
-
+    gameStart();
     document.addEventListener('keydown', handleKeyDown, false);
 
     return () => {
@@ -78,7 +84,10 @@ const InputLine = () => {
   return (
     <>
       <span>{MESSAGES.USED_CHARACTERS_LENGTH} [{abc.length}/{tips.size}]</span>
-      {gameWin && (<div>{MESSAGES.GAME_WIN} - {gameWord}</div>)}
+      {gameWin && (<div>
+        {MESSAGES.GAME_WIN} - {gameWord}
+        <div><button onClick={gameStart}>Új játék</button></div>
+      </div>)}
       {!gameWin && (
         <>
           <div>{gameWordSpace.toString()}</div>
@@ -86,7 +95,6 @@ const InputLine = () => {
             {characters?.length > 1 && (<button onClick={handleCharSort}>{MESSAGES.SET_SORT_ORDER}</button>)}
           </div>
           <p className="inputline">{MESSAGES.YOUR_TIP} <strong>{letter}</strong> {exists}</p>
-
         </>
       )}
     </>
