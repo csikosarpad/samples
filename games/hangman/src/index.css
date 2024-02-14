@@ -73,3 +73,26 @@ button:focus-visible {
   left: 0;
   top: 0;
 }
+
+.keyboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 500px;
+  min-width: 270px;
+  width: 480px;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 5px;
+  span {
+    padding: 3px 6px;
+    color: #000;
+    outline: 1px solid black;
+    cursor: pointer;
+
+    &.used {
+      outline: 1px dashed gray;
+      color: #777;
+    }
+  }
+}

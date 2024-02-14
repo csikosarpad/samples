@@ -5,33 +5,40 @@ import { DICTIONARY } from '../utils/dictionary.json';
 
 const API_URL = 'https://jsonplaceholder.typicode.com/comments';
 
-let alapszotar: string[] = [];
-let szotar: string[] = [];
+let defaultDictionary: string[] | null = [];
+let dictionary: string[] = [];
 
 if (!localStorage.getItem(GAME.STORAGE_NAME)) {
-  alapszotar = DICTIONARY;
-  localStorage.setItem(GAME.STORAGE_NAME, alapszotar.toString());
+  defaultDictionary = DICTIONARY;
+  localStorage.setItem(GAME.STORAGE_NAME, defaultDictionary.toString());
 } else {
-  alapszotar = localStorage.getItem(GAME.STORAGE_NAME).split(',');
+  defaultDictionary = localStorage.getItem(GAME.STORAGE_NAME).split(',');
 }
 
-const reset = () => szotar = [...alapszotar];
+const reset = () => dictionary = [...defaultDictionary];
 reset();
 
 export const sorsol = () => {
-  if (szotar.length > 0) {
-    const kiiras = [];
-    const megoldando = szotar[parseInt(Math.random() * szotar.length, 10)];
-    szotar = szotar.filter((item) => item != megoldando);
-    megoldando.split('').forEach((item) => kiiras.push('_'));
+  if (dictionary.length > 0) {
+    const szotarIndex = parseInt(Math.random() * dictionary.length, 10);
+    const megoldando = dictionary[szotarIndex];
+    let kiiras = [];
+    dictionary = dictionary.filter((item) => item != megoldando);
+    kiiras = megoldando.split('').map(() => '_');
     return [megoldando, kiiras];
   } else {
     return MESSAGES.FINISH;
   }
 }
 
-export const betukereso = ({ szo, megoldando, letter }) => {
-  return megoldando = szo.split('').map((item, index) => {
+type TKereso = {
+  szo: string,
+  megoldando: string[],
+  letter: string
+}
+
+export const betukereso = ({ szo, megoldando, letter }: TKereso): string[] => {
+  return megoldando = szo.split('').map((item: string, index: number) => {
     let ret = megoldando[index]
     if (item === letter) {
       ret = letter
@@ -45,8 +52,13 @@ export const betukereso = ({ szo, megoldando, letter }) => {
 
 const initialState = {
   actStyle: 'dark',
+  dictionary: dictionary,
+  tips: new Set(),
+  letter: '',
+  existsMessage: '',
   data: {},
   status: 'idle',
+  error: ''
 };
 
 export const fetchData = createAsyncThunk('user/fetchUserData', async () => {
@@ -58,6 +70,17 @@ const gameSlice = createSlice({
   name: 'hangmanGame',
   initialState: initialState,
   reducers: {
+    addTips: (state, action) => {
+      const char = action.payload;
+      console.log(state.tips)
+      /*if (state.tips.has(char)) {
+        state.existsMessage = `${MESSAGES.EXISTED_CHAR} ${char}`;
+      } else {
+        state.existsMessage = ``;
+        state.tips = new Set([...state.tips, char]);
+        state.letter = char;
+      }*/
+    },
     setPage: (state, action) => {
       state.actStyle = action.payload;
     },
@@ -79,13 +102,13 @@ const gameSlice = createSlice({
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.error.message || '';
       });
   },
 });
 
 const gameReducer = gameSlice.reducer;
 
-export const { setPage } = gameSlice.actions;
+export const { setPage, addTips } = gameSlice.actions;
 
 export default gameReducer;
