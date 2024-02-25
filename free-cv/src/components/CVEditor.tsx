@@ -5,8 +5,10 @@ const CVEditor = () => {
             <main>
                 <article className="cv-frame">
                     <header>
-                        <h2>Arpad Csikos</h2>
-                        <h3>Senior UI Developer</h3>
+                        <section>
+                            <h2>Arpad Csikos</h2>
+                            <h3>Senior UI Developer</h3>
+                        </section>
                     </header>
                     <div className="cv-content">
                         <nav>
@@ -35,8 +37,10 @@ const CVEditor = () => {
                         </nav>
                         <main>
                             <section>
-                                <title>section 1 title</title>
-                                cv section 1 content
+                                <title>Summary</title>
+                                <p>
+                                    Web UI developer with over 15 years of experience, passionate aboutcreating intuitive, user-friendly websites and applications. Proficient inHTML, CSS (SASS), JavaScript and React.
+                                    I'm open to new technologies, I'm also interested in AI, data processingand visualisation.</p>
                             </section>
                             <section>
                                 <title>section 2 title</title>
