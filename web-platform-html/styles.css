@@ -44,15 +44,18 @@ h1 {
   font-weight: bold;
   font-size: 1.5rem;
 }
+
 .dragged {
   background-color: #d4d4d4;
 }
+
 [draggable] {
   outline: 1px dashed grey;
 }
 [draggable='true'] {
   outline: 1px dashed green;
   cursor: move;
+  color: green;
 }
 [draggable='false'] {
   outline: 1px dotted #000;
@@ -60,4 +63,8 @@ h1 {
 .dropzone {
   outline: 1px dashed grey;
   padding: 10px;
+}
+/*.dragover  */
+.elemet-added {
+  background-color: rgba(255, 0, 0, 0.2);
 }

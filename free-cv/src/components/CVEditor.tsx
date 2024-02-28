@@ -1,5 +1,89 @@
+import { useEffect } from "react";
 
 const CVEditor = () => {
+
+    /** it is not important parts, just a demo */
+
+
+    const dragFunction = () => {
+        const draggableElement = document.querySelectorAll('[draggable="true"]');
+        const draggTarget = document.querySelectorAll('.dropzone');
+        const log = document.querySelector('.event-log-contents');
+
+        if (draggableElement) {
+            let dragged = null;
+
+            draggableElement.forEach((item) => {
+                item.addEventListener('error', (event) => {
+                    //log.textContent += `${event.type}: Loading \n`;
+                });
+
+                item.addEventListener('dragstart', (event) => {
+                    event.target.classList.add('dragged');
+                    dragged = event.target;
+                    //event.dataTransfer.setData('text/plain', 'This text may be dragged');
+                });
+
+                item.addEventListener('dragend', (event) => {
+                    event.target.classList.remove('dragged');
+                    //event.target.parentNode.classList.add('elemet-added');
+                    //log.textContent += `${event.type}: ${event.target} \n`;
+                    //event.dataTransfer.setData('text/plain', 'This text may be dragged');
+                });
+
+                item.addEventListener('dragenter', (event) => {
+                    // highlight potential drop target when the draggable element enters it
+                    if (event.target.classList.contains('dropzone')) {
+                        event.target.classList.add('dragover');
+                        //log.textContent += `${event.type}: entered \n`;
+                    }
+                });
+            });
+
+            draggTarget.forEach((item) => {
+                item.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                });
+
+                item.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    if (event.target.className === 'dropzone') {
+                        dragged.parentNode.removeChild(dragged);
+                        event.target.appendChild(dragged);
+                        //log.textContent += `${event.type}: ${event.target} \n`;
+                    }
+                });
+            });
+        }
+
+    }
+
+
+    const demoText = `Web UI developer with over 15 years of experience, passionate about creating intuitive, user-friendly websites and applications. Proficient in HTML, CSS (SASS), JavaScript and React. I'm open to new technologies, I'm also interested in AI, data processingand visualisation.`.toString();
+    const speed = 30;
+    let i = 0;
+
+    const typeWriter = () => {
+        if (i < demoText.length) {
+            document.getElementById("demo").textContent += demoText.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    const setWrite = () => {
+        document.querySelectorAll('.cv-frame p').forEach(item => item.setAttribute('contenteditable', true))
+    }
+
+    useEffect(() => {
+        typeWriter();
+        setWrite();
+        dragFunction();
+    }, []);
+
+    /** it is not important parts, just a demo - end */
+
+
     return (
         <div className="editor-content frame-container">
             <main>
@@ -36,20 +120,28 @@ const CVEditor = () => {
                             </ul>
                         </nav>
                         <main>
-                            <section>
-                                <title>Summary</title>
-                                <p>
-                                    Web UI developer with over 15 years of experience, passionate aboutcreating intuitive, user-friendly websites and applications. Proficient inHTML, CSS (SASS), JavaScript and React.
-                                    I'm open to new technologies, I'm also interested in AI, data processingand visualisation.</p>
-                            </section>
-                            <section>
-                                <title>section 2 title</title>
-                                cv section 2 content
-                            </section>
-                            <section>
-                                <title>section 3 title</title>
-                                cv section 3 content
-                            </section>
+                            <div className="dropzone">
+                                <section draggable="true">
+                                    <title contentEditable="true">Summary</title>
+                                    <p id="demo" contentEditable="true"></p>
+                                </section>
+                            </div>
+                            <div className="dropzone">
+                                <section draggable="true">
+                                    <title contentEditable="true">Experience</title>
+                                    <p contentEditable="true">
+                                        Web UI developer with over 15 years of experience, passionate aboutcreating intuitive, user-friendly websites and applications. Proficient inHTML, CSS (SASS), JavaScript and React.
+                                        I'm open to new technologies, I'm also interested in AI, data processingand visualisation.</p>
+                                </section>
+                            </div>
+                            <div className="dropzone">
+                                <section draggable="true">
+                                    <title contentEditable="true">Summary</title>
+                                    <p contentEditable="true">
+                                        Web UI developer with over 15 years of experience, passionate aboutcreating intuitive, user-friendly websites and applications. Proficient inHTML, CSS (SASS), JavaScript and React.
+                                        I'm open to new technologies, I'm also interested in AI, data processingand visualisation.</p>
+                                </section>
+                            </div>
                         </main>
                     </div>
                 </article>

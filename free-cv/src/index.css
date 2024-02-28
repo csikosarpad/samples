@@ -126,6 +126,10 @@ button:focus-visible {
           padding: 0.5rem;
           position: relative;
           background-color: var(--middle-cream);
+          h2 {
+            padding: 0;
+            margin: 2.5rem 0 1rem;
+          }
 
           &::before {
             content: '';
@@ -140,10 +144,12 @@ button:focus-visible {
         }
 
         & > main {
+          padding: 0 1.5rem;
           section:first-child {
             padding-top: 49px;
           }
           title {
+            display: block;
             font-weight: bold;
           }
         }
@@ -169,9 +175,40 @@ button:focus-visible {
 /* Use custom media query */
 /*@supports (display: flex) {*/
 /*@media (400px <= width <= 700px)  {*/
+
 @media (width >= 800px) {
   /* CSS rules for wide-screen devices */
   .main-container {
     flex-direction: row;
   }
+}
+
+@media print {
+  .sidebar {
+    display: none;
+  }
+  [draggable='true'] {
+    outline: none;
+  }
+}
+
+.dragged {
+  background-color: #d4d4d4;
+}
+
+[draggable]:hover {
+  outline: 1px dashed grey;
+}
+
+[draggable='true'] {
+  outline: 1px dashed green;
+  cursor: move;
+  color: green;
+}
+[draggable='false']:hover {
+  outline: 1px dotted #000;
+}
+.dropzone {
+  outline: 1px dashed red;
+  padding: 5px;
 }
