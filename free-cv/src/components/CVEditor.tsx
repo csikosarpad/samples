@@ -1,4 +1,11 @@
 import { useEffect } from "react";
+import { create } from 'zustand';
+import { useQuery } from "@tanstack/react-query";
+
+const useStore = create((set) => ({
+    users: [],
+    setUsers: (users) => set(() => ({ users }))
+}));
 
 const CVEditor = () => {
 
