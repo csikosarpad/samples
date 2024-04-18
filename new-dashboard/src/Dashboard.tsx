@@ -1,40 +1,13 @@
-// import React from 'react';
-// import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-// import rootReducer from './reducers';
-// import Widget from './Widget';
-
-// const store = createStore(rootReducer);
-
-// const Dashboard: React.FC = () => {
-//     const grafikonAdatok = [
-//         { name: 'Jan', value: 220 },
-//         { name: 'Feb', value: 320 },
-//         { name: 'Mar', value: 240 },
-//         // További adatok...
-//     ];
-
-//     return (
-//         <Provider store={store}>
-//             <div className="dashboard">
-//                 <Widget title="Widget 1" widgetId="widget1" />
-//                 <Widget title="Widget 2" widgetId="widget2" />
-//                 {/* További widget komponensek */}
-//             </div>
-//         </Provider>
-//     );
-// };
-
-// export default Dashboard;
-
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers';
+import { widgetsReducer } from './reducers';
 import GrafikonWidget from './GrafikonWidget';
 
 const store = configureStore({
-    reducer: rootReducer,
+    reducer: {
+        widgets: widgetsReducer,
+    },
 });
 
 const Dashboard: React.FC = () => {
@@ -42,17 +15,30 @@ const Dashboard: React.FC = () => {
         { name: 'Jan', value: 220 },
         { name: 'Feb', value: 320 },
         { name: 'Mar', value: 240 },
-        { name: 'April', value: 440 },
-        { name: 'May', value: 480 },
+        // További adatok...
+    ];
+    const grafikonAdatok2 = [
+        { name: 'Január', value: 150 },
+        { name: 'Február', value: 220 },
+        { name: 'Március', value: 280 },
+        // További adatok...
+    ];
+    const grafikonAdatok3 = [
+        { name: 'Január', value: 150 },
+        { name: 'Február', value: 220 },
+        { name: 'Március', value: 280 },
+        { name: 'Április', value: 150 },
+        { name: 'Május', value: 320 },
+        { name: 'Június', value: 480 },
         // További adatok...
     ];
 
     return (
         <Provider store={store}>
             <div className="dashboard">
-                <GrafikonWidget data={grafikonAdatok} title="Grafikon" widgetId="grafikonWidget" />
-                <GrafikonWidget data={grafikonAdatok} title="Grafikon2" widgetId="grafikonWidget2" />
-                <GrafikonWidget data={grafikonAdatok} title="Grafikon3" widgetId="grafikonWidget3" />
+                <GrafikonWidget data={grafikonAdatok} widgetId="grafikonWidget" title="Grafikon Widget 1" />
+                <GrafikonWidget data={grafikonAdatok2} widgetId="grafikonWidget2" title="Grafikon Widget 2" />
+                <GrafikonWidget data={grafikonAdatok3} widgetId="grafikonWidget3" title="Grafikon Widget 3" />
                 {/* További widget komponensek */}
             </div>
         </Provider>

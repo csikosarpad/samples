@@ -3,12 +3,13 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import Widget from './Widget';
 
 interface GrafikonWidgetProps {
-    title: string;
-    widgetId: string;
     data: { name: string; value: number }[];
+    widgetId: string;
+    title: string;
 }
 
-const GrafikonWidget: React.FC<GrafikonWidgetProps> = ({ data, title, widgetId }) => {
+const GrafikonWidget: React.FC<GrafikonWidgetProps> = ({ data, widgetId, title }) => {
+    // Itt lehetne hozzáférni a saját stílusokhoz is
     return (
         <Widget title={title} widgetId={widgetId}>
             <LineChart width={400} height={300} data={data}>
