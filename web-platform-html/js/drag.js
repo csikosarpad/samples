@@ -20,7 +20,8 @@ if (draggableElement) {
 
     item.addEventListener('dragend', (event) => {
       event.target.classList.remove('dragged');
-      log.textContent += `${event.type}: ${event.target} \n`;
+      //event.target.parentNode.classList.add('elemet-added');
+      //log.textContent += `${event.type}: ${event.target} \n`;
       //event.dataTransfer.setData('text/plain', 'This text may be dragged');
     });
 
@@ -28,7 +29,7 @@ if (draggableElement) {
       // highlight potential drop target when the draggable element enters it
       if (event.target.classList.contains(DROPZONE_CLASSNAME)) {
         event.target.classList.add('dragover');
-        log.textContent += `${event.type}: entered \n`;
+        //log.textContent += `${event.type}: entered \n`;
       }
     });
   });
@@ -43,7 +44,7 @@ if (draggableElement) {
       if (event.target.className === DROPZONE_CLASSNAME) {
         dragged.parentNode.removeChild(dragged);
         event.target.appendChild(dragged);
-        log.textContent += `${event.type}: ${event.target} \n`;
+        //log.textContent += `${event.type}: ${event.target} \n`;
       }
     });
   });
