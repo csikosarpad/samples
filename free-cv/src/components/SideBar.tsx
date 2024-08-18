@@ -10,6 +10,7 @@ const SideBar = () => {
                     <li>item 1</li>
                 </ul>
             </main>
+            <input type="color" id="head" name="head" value="#e66465" />
         </header>
     );
 }

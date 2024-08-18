@@ -108,7 +108,7 @@ const CVEditor = () => {
                                 <li>+36302807143</li>
                                 <li>arpad.csikos@gmail.com</li>
                             </ul>
-                            <h2>Skills</h2>
+                            <h2>Skills <span>+add skill</span></h2>
                             <ul>
                                 <li>React.js
                                     <progress value="80" max="100"></progress></li>
