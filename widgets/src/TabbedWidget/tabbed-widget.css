@@ -1,0 +1,89 @@
+.tabbed-widget {
+  .tabbed-buttons {
+    display: grid;
+    gap: 0.1rem;
+    grid-auto-flow: column;
+    margin: 0 0 1rem 0;
+
+    .tab-button {
+      position: relative;
+      box-sizing: border-box;
+      background: rgba(0, 128, 255, 0.5);
+      color: #000;
+      padding: 1rem;
+      cursor: pointer;
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      transition: all 0.5s ease-out;
+
+      &.active {
+        background: rgba(0, 128, 255, 1);
+        .tab-button-footer {
+          display: block;
+        }
+
+        &::before,
+        .tab-button-footer::before {
+          content: '';
+          width: 5px;
+          height: 100%;
+          position: absolute;
+          left: -5px;
+          top: 0;
+          background-color: rgb(239, 27, 27);
+          z-index: 1;
+          border-radius: 5px 0 0 5px;
+        }
+      }
+
+      i {
+        display: block;
+        width: 1.4rem;
+        height: 1.4rem;
+        line-height: 1;
+        position: absolute;
+        text-align: center;
+        right: 0.6rem;
+        top: 0.6rem;
+        transition: all 0.5s ease-out;
+        font-weight: 700;
+        border-radius: 50%;
+        z-index: 2;
+      }
+      .tab-button-footer {
+        display: none;
+        position: absolute;
+        background: inherit;
+        padding: inherit;
+        bottom: -1rem;
+        left: 0;
+        right: 0;
+        text-align: right;
+        * {
+          padding: 0;
+          margin: 0;
+        }
+      }
+
+      &:hover {
+        /*transform: rotateX('angle');*/
+        i {
+          transform: rotate(360deg);
+          box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.6),
+            0px 0px 0px 6px rgba(255, 255, 255, 0.4),
+            0px 0px 0px 12px rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  .tabbed-content {
+    outline: 1px solid green;
+    * {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
